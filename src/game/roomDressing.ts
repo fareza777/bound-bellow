@@ -76,30 +76,35 @@ function drawChapterFloorWash(
       const y = fy + ROOM_H * 0.45 + rng.range(0, ROOM_H * 0.5);
       ctx.strokeStyle = "rgba(170,214,200,0.10)";
       ctx.lineWidth = 0.8;
+      const w = rng.range(22, 54);
       ctx.beginPath();
-      ctx.ellipse(x, y, rng.range(20, 54), rng.range(4, 10), rng.range(-0.12, 0.12), Math.PI, TAU);
+      ctx.moveTo(x - w, y);
+      ctx.bezierCurveTo(x - w * 0.35, y - 3, x + w * 0.25, y + 3, x + w, y);
       ctx.stroke();
     }
     ctx.fillStyle = "rgba(168,210,196,0.055)";
     for (let i = 0; i < 5; i++) {
+      const x = fx + rng.range(40, ROOM_W - 40);
+      const y = fy + rng.range(ROOM_H * 0.55, ROOM_H - 20);
+      const w = rng.range(18, 42);
       ctx.beginPath();
-      ctx.ellipse(
-        fx + rng.range(40, ROOM_W - 40),
-        fy + rng.range(ROOM_H * 0.55, ROOM_H - 20),
-        rng.range(18, 42),
-        rng.range(2, 5),
-        0,
-        0,
-        TAU,
-      );
+      ctx.moveTo(x - w, y);
+      ctx.quadraticCurveTo(x - w * 0.2, y - 5, x + w, y + 1);
+      ctx.quadraticCurveTo(x + w * 0.1, y + 6, x - w, y);
       ctx.fill();
     }
   } else if (theme.index === 3) {
     ctx.fillStyle = "rgba(62,45,24,0.10)";
-    ctx.beginPath();
-    ctx.ellipse(fx + ROOM_W * 0.2, fy + ROOM_H - 30, 150, 36, 0, 0, TAU);
-    ctx.ellipse(fx + ROOM_W * 0.82, fy + 36, 130, 30, 0, 0, TAU);
-    ctx.fill();
+    for (const [bx, by, bw, bh] of [
+      [fx + ROOM_W * 0.2, fy + ROOM_H - 30, 150, 36],
+      [fx + ROOM_W * 0.82, fy + 36, 130, 30],
+    ]) {
+      ctx.beginPath();
+      ctx.moveTo(bx - bw, by);
+      ctx.bezierCurveTo(bx - bw * 0.55, by - bh, bx + bw * 0.25, by - bh * 0.6, bx + bw, by + bh * 0.15);
+      ctx.bezierCurveTo(bx + bw * 0.5, by + bh, bx - bw * 0.35, by + bh * 0.8, bx - bw, by);
+      ctx.fill();
+    }
     ctx.strokeStyle = "rgba(117,86,45,0.18)";
     for (let i = 0; i < 7; i++) {
       const x = fx + rng.range(20, ROOM_W - 20);
@@ -134,21 +139,34 @@ function drawChapterFloorWash(
   } else {
     ctx.fillStyle = "rgba(15,11,8,0.10)";
     for (let i = 0; i < 4; i++) {
+      const x = fx + rng.range(40, ROOM_W - 40);
+      const y = fy + rng.range(24, ROOM_H - 24);
+      const wx = rng.range(24, 70);
+      const hy = rng.range(8, 22);
       ctx.beginPath();
-      ctx.ellipse(
-        fx + rng.range(40, ROOM_W - 40),
-        fy + rng.range(24, ROOM_H - 24),
-        rng.range(24, 70),
-        rng.range(8, 22),
-        rng.range(0, TAU),
-        0,
-        TAU,
-      );
+      ctx.moveTo(x - wx, y);
+      ctx.bezierCurveTo(x - wx * 0.4, y - hy, x + wx * 0.3, y - hy * 1.2, x + wx, y);
+      ctx.bezierCurveTo(x + wx * 0.4, y + hy, x - wx * 0.3, y + hy * 0.9, x - wx, y);
       ctx.fill();
     }
   }
   ctx.restore();
   void room;
+}
+
+function diamondPath(
+  ctx: CanvasRenderingContext2D,
+  cx: number,
+  cy: number,
+  rx: number,
+  ry: number,
+): void {
+  ctx.beginPath();
+  ctx.moveTo(cx, cy - ry);
+  ctx.lineTo(cx + rx, cy);
+  ctx.lineTo(cx, cy + ry);
+  ctx.lineTo(cx - rx, cy);
+  ctx.closePath();
 }
 
 function drawRoomSigil(
@@ -159,9 +177,10 @@ function drawRoomSigil(
   cy: number,
   rng: Rng,
 ): void {
+  const accent = theme.palette.accent;
   ctx.save();
   if (room.type === "start") {
-    ctx.strokeStyle = "rgba(194,74,51,0.15)";
+    ctx.strokeStyle = "rgba(194,74,51,0.16)";
     ctx.lineWidth = 1.4;
     ctx.beginPath();
     ctx.moveTo(cx - 92, cy - 66);
@@ -171,119 +190,131 @@ function drawRoomSigil(
     ctx.moveTo(cx - 92, cy - 66);
     ctx.bezierCurveTo(cx - 120, cy - 20, cx - 40, cy + 4, cx + 48, cy + 38);
     ctx.stroke();
-    ctx.strokeStyle = "rgba(232,200,140,0.14)";
-    ctx.beginPath();
-    ctx.arc(cx + 66, cy + 30, 8, 0, TAU);
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.arc(cx + 66, cy + 30, 3, 0, TAU);
-    ctx.fillStyle = "rgba(232,200,140,0.16)";
+    ctx.fillStyle = "rgba(232,200,140,0.10)";
+    diamondPath(ctx, cx + 66, cy + 30, 15, 10);
     ctx.fill();
+    ctx.strokeStyle = "rgba(232,200,140,0.18)";
+    ctx.lineWidth = 1;
+    ctx.stroke();
   } else if (room.type === "boss" || room.type === "challenge") {
     const boss = room.type === "boss";
-    ctx.strokeStyle = boss ? "rgba(194,74,51,0.22)" : "rgba(216,166,91,0.17)";
+    const rx = boss ? 172 : 132;
+    const ry = boss ? 122 : 94;
+    ctx.strokeStyle = boss ? "rgba(194,74,51,0.24)" : "rgba(216,166,91,0.18)";
     ctx.lineWidth = boss ? 2 : 1.2;
-    ctx.beginPath();
-    ctx.arc(cx, cy, boss ? 148 : 112, 0, TAU);
+    diamondPath(ctx, cx, cy, rx, ry);
     ctx.stroke();
-    ctx.beginPath();
-    ctx.arc(cx, cy, boss ? 118 : 88, 0, TAU);
+    diamondPath(ctx, cx, cy, rx * 0.74, ry * 0.74);
     ctx.stroke();
-    const count = boss ? 16 : 8;
-    for (let i = 0; i < count; i++) {
-      const a = (i / count) * TAU + 0.1;
-      const inner = boss ? 100 : 78;
-      const outer = boss ? 112 : 92;
-      const scaleY = boss ? 0.78 : 0.74;
+    for (const [sx, sy] of [
+      [-1, -1],
+      [1, -1],
+      [-1, 1],
+      [1, 1],
+    ]) {
+      const px = cx + sx * rx * 0.74;
+      const py = cy + sy * ry * 0.74;
       ctx.beginPath();
-      ctx.moveTo(cx + Math.cos(a) * inner, cy + Math.sin(a) * inner * scaleY);
-      ctx.lineTo(cx + Math.cos(a) * outer, cy + Math.sin(a) * outer * scaleY);
+      ctx.moveTo(px - sx * 22, py);
+      ctx.lineTo(px, py);
+      ctx.lineTo(px, py - sy * 16);
+      ctx.stroke();
+    }
+    const marks = boss ? 10 : 6;
+    for (let i = 1; i < marks; i++) {
+      const a = -Math.PI / 2 + (i / marks) * TAU;
+      const dx = Math.cos(a);
+      const dy = Math.sin(a);
+      const ix = Math.abs(dx) * rx * 0.74;
+      const iy = Math.abs(dy) * ry * 0.74;
+      const k = Math.min(ix / Math.max(0.001, Math.abs(dx)), iy / Math.max(0.001, Math.abs(dy)));
+      ctx.beginPath();
+      ctx.moveTo(cx + dx * k * 0.82, cy + dy * k * 0.82);
+      ctx.lineTo(cx + dx * k, cy + dy * k);
       ctx.stroke();
     }
     if (boss) {
-      ctx.strokeStyle = "rgba(194,74,51,0.11)";
+      ctx.strokeStyle = "rgba(194,74,51,0.12)";
       for (let i = 0; i < 4; i++) {
-        const a = (i / 4) * TAU;
+        const a = -Math.PI / 2 + (i / 4) * TAU;
         ctx.beginPath();
-        ctx.moveTo(cx + Math.cos(a) * 24, cy + Math.sin(a) * 18);
-        ctx.lineTo(cx + Math.cos(a) * 148, cy + Math.sin(a) * 112);
+        ctx.moveTo(cx + Math.cos(a) * 34, cy + Math.sin(a) * 24);
+        ctx.lineTo(cx + Math.cos(a) * rx * 0.72, cy + Math.sin(a) * ry * 0.72);
         ctx.stroke();
       }
     }
   } else if (room.type === "treasure" || room.type === "vault") {
-    ctx.strokeStyle = "rgba(216,166,91,0.16)";
+    ctx.strokeStyle = "rgba(216,166,91,0.17)";
     ctx.lineWidth = 1.2;
-    for (const r of [58, 76, 94]) {
-      ctx.beginPath();
-      ctx.arc(cx, cy, r, 0, TAU);
-      ctx.stroke();
+    for (const inset of [34, 52, 70]) {
+      ctx.strokeRect(
+        cx - 90 + inset * 0.45,
+        cy - 54 + inset * 0.28,
+        (90 - inset * 0.45) * 2,
+        (54 - inset * 0.28) * 2,
+      );
     }
-    for (let i = 0; i < 8; i++) {
-      const a = (i / 8) * TAU;
-      ctx.beginPath();
-      ctx.moveTo(cx + Math.cos(a) * 84, cy + Math.sin(a) * 62);
-      ctx.lineTo(cx + Math.cos(a) * 108, cy + Math.sin(a) * 82);
+    for (const [sx, sy] of [
+      [-1, -1],
+      [1, -1],
+      [-1, 1],
+      [1, 1],
+    ]) {
+      diamondPath(ctx, cx + sx * 86, cy + sy * 50, 7, 7);
       ctx.stroke();
-      ctx.fillStyle = "rgba(216,166,91,0.12)";
-      ctx.beginPath();
-      ctx.arc(cx + Math.cos(a) * 108, cy + Math.sin(a) * 82, 2.2, 0, TAU);
-      ctx.fill();
     }
     if (room.type === "vault") {
       ctx.strokeRect(cx - 34, cy - 24, 68, 48);
+      ctx.strokeRect(cx - 20, cy - 14, 40, 28);
       ctx.beginPath();
-      ctx.arc(cx, cy, 7, 0, TAU);
+      ctx.moveTo(cx - 8, cy);
+      ctx.lineTo(cx + 8, cy);
       ctx.stroke();
     }
   } else if (room.type === "shop") {
-    ctx.strokeStyle = "rgba(216,166,91,0.14)";
-    ctx.beginPath();
-    ctx.arc(cx, cy, 86, 0, TAU);
-    ctx.stroke();
-    for (let i = 0; i < 5; i++) {
-      const a = (i / 5) * TAU - 0.4;
-      const x = cx + Math.cos(a) * 66;
-      const y = cy + Math.sin(a) * 48;
-      ctx.beginPath();
-      ctx.arc(x, y, 8, 0, TAU);
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.moveTo(x - 4, y);
-      ctx.lineTo(x + 4, y);
+    ctx.fillStyle = "rgba(84,36,28,0.13)";
+    ctx.fillRect(cx - 112, cy - 34, 224, 68);
+    ctx.strokeStyle = "rgba(216,166,91,0.16)";
+    ctx.setLineDash([6, 6]);
+    ctx.strokeRect(cx - 108, cy - 30, 216, 60);
+    ctx.setLineDash([]);
+    for (let i = -2; i <= 2; i++) {
+      diamondPath(ctx, cx + i * 34, cy + (i % 2) * 6, 8, 8);
       ctx.stroke();
     }
   } else if (room.type === "library") {
-    ctx.strokeStyle = "rgba(216,166,91,0.13)";
+    ctx.strokeStyle = "rgba(216,166,91,0.14)";
     ctx.lineWidth = 1.1;
-    for (let i = -2; i <= 2; i++) {
+    for (let i = -3; i <= 3; i++) {
       ctx.beginPath();
-      ctx.moveTo(cx - 90, cy + i * 14);
-      ctx.lineTo(cx + 90, cy + i * 14);
+      ctx.moveTo(cx - 96, cy + i * 9);
+      ctx.lineTo(cx + 96, cy + i * 9);
       ctx.stroke();
     }
     for (let i = 0; i < 7; i++) {
-      ctx.fillStyle = "rgba(216,166,91,0.08)";
-      ctx.fillRect(cx - 72 + i * 24, cy - 30, rng.range(5, 10), rng.range(18, 42));
+      ctx.fillStyle = "rgba(216,166,91,0.09)";
+      ctx.fillRect(cx - 74 + i * 24, cy - 25, rng.range(5, 10), rng.range(18, 42));
     }
   } else if (room.type === "sacrifice") {
-    ctx.strokeStyle = "rgba(141,48,40,0.22)";
+    ctx.strokeStyle = "rgba(141,48,40,0.24)";
     ctx.lineWidth = 1.4;
-    ctx.beginPath();
-    ctx.arc(cx, cy, 92, 0, TAU);
-    ctx.stroke();
-    for (let i = 0; i < 12; i++) {
-      const a = (i / 12) * TAU;
+    ctx.strokeRect(cx - 78, cy - 44, 156, 88);
+    ctx.strokeRect(cx - 62, cy - 30, 124, 60);
+    for (let i = 0; i < 10; i++) {
+      const a = (i / 10) * TAU;
       ctx.beginPath();
-      ctx.moveTo(cx + Math.cos(a) * 82, cy + Math.sin(a) * 62);
-      ctx.lineTo(cx + Math.cos(a) * 100, cy + Math.sin(a) * 74);
+      ctx.moveTo(cx + Math.cos(a) * 60, cy + Math.sin(a) * 34);
+      ctx.lineTo(cx + Math.cos(a) * 76, cy + Math.sin(a) * 42);
       ctx.stroke();
     }
-    ctx.fillStyle = "rgba(141,48,40,0.12)";
+    ctx.fillStyle = "rgba(116,32,28,0.18)";
     ctx.beginPath();
-    ctx.ellipse(cx, cy + 20, 42, 12, 0, 0, TAU);
+    ctx.moveTo(cx - 36, cy + 12);
+    ctx.bezierCurveTo(cx - 4, cy + 20, cx + 24, cy + 4, cx + 48, cy + 20);
+    ctx.bezierCurveTo(cx + 20, cy + 30, cx - 18, cy + 36, cx - 36, cy + 12);
     ctx.fill();
   } else if (room.type === "secret") {
-    ctx.strokeStyle = "rgba(214,214,190,0.10)";
+    ctx.strokeStyle = "rgba(214,214,190,0.11)";
     ctx.lineWidth = 1;
     for (let i = 0; i < 8; i++) {
       const a = (i / 8) * TAU;
@@ -292,86 +323,77 @@ function drawRoomSigil(
       ctx.lineTo(cx + Math.cos(a) * 120, cy + Math.sin(a) * 82);
       ctx.stroke();
     }
-    for (const r of [40, 74, 106]) {
+    for (let i = 0; i < 4; i++) {
+      const a = (i / 4) * TAU + 0.2;
       ctx.beginPath();
-      ctx.ellipse(cx, cy, r, r * 0.68, 0.1, 0, TAU);
+      ctx.moveTo(cx + Math.cos(a) * 48, cy + Math.sin(a) * 33);
+      ctx.lineTo(cx + Math.cos(a) * 78, cy + Math.sin(a) * 54);
       ctx.stroke();
     }
   } else {
-    // A faded chapter medallion keeps ordinary combat rooms from reading as
-    // interchangeable stone boxes.
-    ctx.strokeStyle = theme.palette.accent + "16";
+    ctx.strokeStyle = accent + "16";
+    ctx.fillStyle = accent + "08";
     ctx.lineWidth = 1;
     if (theme.index === 0) {
-      ctx.beginPath();
-      ctx.arc(cx, cy, 72, 0, TAU);
-      ctx.stroke();
-      for (let i = 0; i < 12; i++) {
-        const a = (i / 12) * TAU;
+      ctx.strokeRect(cx - 34, cy - 17, 68, 34);
+      for (let i = -2; i <= 2; i++) {
         ctx.beginPath();
-        ctx.moveTo(cx + Math.cos(a) * 48, cy + Math.sin(a) * 48);
-        ctx.lineTo(cx + Math.cos(a) * 70, cy + Math.sin(a) * 70);
+        ctx.moveTo(cx - 28, cy + i * 6);
+        ctx.lineTo(cx + 28, cy + i * 6);
         ctx.stroke();
       }
-      ctx.strokeRect(cx - 18, cy - 18, 36, 36);
+      for (const [sx, sy] of [
+        [-1, -1],
+        [1, -1],
+        [-1, 1],
+        [1, 1],
+      ]) {
+        diamondPath(ctx, cx + sx * 72, cy + sy * 44, 6, 6);
+        ctx.fill();
+        ctx.stroke();
+      }
     } else if (theme.index === 1) {
-      for (let i = 0; i < 8; i++) {
-        const a = (i / 8) * TAU;
-        ctx.beginPath();
-        ctx.ellipse(
-          cx + Math.cos(a) * 62,
-          cy + Math.sin(a) * 44,
-          10,
-          5,
-          a,
-          0,
-          TAU,
-        );
-        ctx.stroke();
+      for (let i = -1; i <= 1; i++) {
+        for (let j = -1; j <= 1; j++) {
+          if (i === 0 && j === 0) continue;
+          diamondPath(ctx, cx + i * 46, cy + j * 30, 16, 11);
+          ctx.stroke();
+        }
       }
-      ctx.beginPath();
-      ctx.arc(cx, cy, 90, 0, TAU);
+      diamondPath(ctx, cx, cy, 18, 12);
       ctx.stroke();
     } else if (theme.index === 2) {
-      for (let r = 24; r <= 84; r += 20) {
+      for (let j = -1; j <= 1; j++) {
         ctx.beginPath();
-        ctx.arc(cx, cy, r, 0.4, Math.PI * 1.6);
+        ctx.moveTo(cx - 104, cy + j * 18);
+        ctx.bezierCurveTo(cx - 48, cy + j * 18 - 7, cx + 4, cy + j * 18 + 7, cx + 104, cy + j * 18);
         ctx.stroke();
       }
-      ctx.strokeStyle = theme.palette.accent + "0d";
-      ctx.beginPath();
-      ctx.ellipse(cx, cy, 100, 58, 0.15, 0, TAU);
-      ctx.stroke();
+      ctx.strokeRect(cx - 26, cy - 32, 52, 20);
     } else if (theme.index === 3) {
-      for (let i = 0; i < 6; i++) {
-        const a = (i / 6) * TAU;
-        ctx.beginPath();
-        ctx.moveTo(cx, cy);
-        ctx.bezierCurveTo(
-          cx + Math.cos(a) * 27,
-          cy + Math.sin(a) * 22,
-          cx + Math.cos(a + 0.35) * 58,
-          cy + Math.sin(a + 0.35) * 44,
-          cx + Math.cos(a) * 82,
-          cy + Math.sin(a) * 62,
-        );
-        ctx.stroke();
-      }
       ctx.beginPath();
-      ctx.arc(cx, cy, 24, 0, TAU);
+      ctx.moveTo(cx, cy - 46);
+      ctx.bezierCurveTo(cx - 26, cy - 10, cx - 74, cy - 4, cx - 92, cy + 30);
+      ctx.moveTo(cx, cy - 46);
+      ctx.bezierCurveTo(cx + 26, cy - 10, cx + 74, cy - 4, cx + 92, cy + 30);
+      ctx.moveTo(cx, cy + 8);
+      ctx.bezierCurveTo(cx - 22, cy + 28, cx - 36, cy + 48, cx - 54, cy + 58);
+      ctx.moveTo(cx, cy + 8);
+      ctx.bezierCurveTo(cx + 22, cy + 28, cx + 36, cy + 48, cx + 54, cy + 58);
+      ctx.stroke();
+      diamondPath(ctx, cx, cy - 4, 14, 10);
+      ctx.fill();
       ctx.stroke();
     } else {
-      ctx.beginPath();
-      ctx.arc(cx, cy, 82, 0, TAU);
+      diamondPath(ctx, cx, cy, 82, 58);
       ctx.stroke();
-      ctx.beginPath();
-      ctx.arc(cx, cy, 58, 0, TAU);
+      diamondPath(ctx, cx, cy, 54, 38);
       ctx.stroke();
-      for (let i = 0; i < 6; i++) {
-        const a = (i / 6) * TAU;
+      for (let i = 0; i < 4; i++) {
+        const a = -Math.PI / 2 + (i / 4) * TAU;
         ctx.beginPath();
-        ctx.moveTo(cx + Math.cos(a) * 58, cy + Math.sin(a) * 58);
-        ctx.lineTo(cx + Math.cos(a + 0.5) * 82, cy + Math.sin(a + 0.5) * 82);
+        ctx.moveTo(cx + Math.cos(a) * 54, cy + Math.sin(a) * 38);
+        ctx.lineTo(cx + Math.cos(a) * 82, cy + Math.sin(a) * 58);
         ctx.stroke();
       }
     }
@@ -553,9 +575,12 @@ function drawDrownedDressing(
   for (let i = 0; i < 6; i++) {
     const x = fx + rng.range(25, ROOM_W - 25);
     const y = fy + rng.range(20, ROOM_H - 20);
+    const w = rng.range(14, 44);
+    const h = rng.range(3, 10);
     ctx.strokeStyle = "rgba(150,196,180,0.08)";
     ctx.beginPath();
-    ctx.ellipse(x, y, rng.range(14, 44), rng.range(3, 10), rng.range(0, TAU), 0, TAU);
+    ctx.moveTo(x - w, y);
+    ctx.bezierCurveTo(x - w * 0.3, y - h, x + w * 0.4, y + h, x + w, y);
     ctx.stroke();
   }
   for (let i = 0; i < 5; i++) {
@@ -722,9 +747,7 @@ function drawRoomTypeDressing(
     ctx.arc(x, 21, 4, 0, TAU);
     ctx.fill();
     ctx.fillStyle = "rgba(84,36,28,0.12)";
-    ctx.beginPath();
-    ctx.ellipse(fx + ROOM_W / 2, fy + ROOM_H * 0.72, 112, 28, 0, 0, TAU);
-    ctx.fill();
+    ctx.fillRect(fx + ROOM_W / 2 - 112, fy + ROOM_H * 0.72 - 28, 224, 56);
   } else if (room.type === "library") {
     for (const side of [-1, 1]) {
       const x = side < 0 ? fx - WALL + 1 : fx + ROOM_W + WALL - 1;
@@ -746,9 +769,7 @@ function drawRoomTypeDressing(
       drawCandle(ctx, x + 10, fy + ROOM_H * 0.58, 0, 7 + side);
     }
     ctx.fillStyle = "rgba(75,28,24,0.12)";
-    ctx.beginPath();
-    ctx.ellipse(fx + ROOM_W / 2, fy + ROOM_H * 0.58, 104, 34, 0, 0, TAU);
-    ctx.fill();
+    ctx.fillRect(fx + ROOM_W / 2 - 104, fy + ROOM_H * 0.58 - 34, 208, 68);
   } else if (room.type === "boss") {
     for (const side of [-1, 1]) {
       const x = fx + ROOM_W / 2 + side * 210;
@@ -775,9 +796,7 @@ function drawRoomTypeDressing(
     ctx.strokeStyle = "rgba(216,166,91,0.12)";
     ctx.lineWidth = 1.1;
     ctx.setLineDash([7, 7]);
-    ctx.beginPath();
-    ctx.arc(fx + ROOM_W / 2, fy + ROOM_H / 2, 148, 0, TAU);
-    ctx.stroke();
+    ctx.strokeRect(fx + 48, fy + 42, ROOM_W - 96, ROOM_H - 84);
     ctx.setLineDash([]);
     ctx.strokeStyle = "rgba(194,74,51,0.22)";
     ctx.beginPath();
@@ -841,13 +860,13 @@ export function drawChapterAmbient(
       ctx.arc(x, y, 0.8 + (i % 2) * 0.7, 0, TAU);
       ctx.fill();
     }
-    for (let i = 0; i < 2; i++) {
+    for (let i = 0; i < 3; i++) {
       const x = fx + rng.range(60, ROOM_W - 60);
-      const y = fy + rng.range(50, ROOM_H - 50);
-      const ripple = (time * 0.5 + i * 0.37) % 1;
-      ctx.strokeStyle = "rgba(175,206,196," + 0.12 * (1 - ripple) + ")";
+      const y = fy + ((rng.range(0, ROOM_H) + time * 3) % ROOM_H);
+      ctx.strokeStyle = "rgba(175,206,196,0.08)";
       ctx.beginPath();
-      ctx.ellipse(x, y, 4 + ripple * 18, 1.5 + ripple * 5, 0, 0, TAU);
+      ctx.moveTo(x - 12, y);
+      ctx.lineTo(x + 12, y);
       ctx.stroke();
     }
   } else if (theme.index === 1) {

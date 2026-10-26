@@ -787,19 +787,25 @@ function drawFloor(ctx: CanvasRenderingContext2D, rng: Rng, theme: Theme): void 
       const rx = rng.range(42, 100);
       const ry = rng.range(20, 44);
       const g = ctx.createRadialGradient(wx, wy, 4, wx, wy, rx);
-      g.addColorStop(0, "rgba(38,56,53,0.6)");
-      g.addColorStop(0.7, "rgba(30,44,41,0.32)");
-      g.addColorStop(1, "rgba(30,44,41,0)");
+      g.addColorStop(0, "rgba(46,50,36,0.48)");
+      g.addColorStop(0.7, "rgba(36,42,30,0.24)");
+      g.addColorStop(1, "rgba(30,38,28,0)");
       ctx.fillStyle = g;
       ctx.beginPath();
-      ctx.ellipse(wx, wy, rx, ry, rng.range(-0.25, 0.25), 0, TAU);
+      for (let k = 0; k <= 12; k++) {
+        const a = (k / 12) * TAU;
+        const wob = 0.78 + Math.sin(k * 2.7 + i) * 0.18;
+        const px = wx + Math.cos(a) * rx * wob;
+        const py = wy + Math.sin(a) * ry * wob;
+        if (k === 0) ctx.moveTo(px, py);
+        else ctx.lineTo(px, py);
+      }
+      ctx.closePath();
       ctx.fill();
-      ctx.strokeStyle = "rgba(194,184,154,0.09)";
+      ctx.strokeStyle = "rgba(194,184,154,0.08)";
       ctx.lineWidth = 1;
-      ctx.beginPath();
-      ctx.ellipse(wx - 3, wy - 2, rx * 0.55, ry * 0.42, 0.08, 2.9, 5.8);
       ctx.stroke();
-      ctx.strokeStyle = "rgba(238,196,132,0.16)";
+      ctx.strokeStyle = "rgba(238,196,132,0.13)";
       ctx.beginPath();
       ctx.moveTo(wx - rx * 0.25, wy);
       ctx.lineTo(wx + rx * 0.1, wy - 1);
