@@ -1,0 +1,23 @@
+node_modules/
+dist/
+.data/
+*.log
+*.zip
+.DS_Store
+
+# Android build output and local configuration
+android/app/build/
+android/.gradle/
+android/build/
+android/local.properties
+android/keystore/
+android/keystore.properties
+android/app/src/main/assets/public/
+android/app/src/main/assets/capacitor.config.json
+android/app/src/main/assets/capacitor.plugins.json
+android/app/src/main/res/xml/config.xml
+
+# Signed binaries and large local QA captures
+share/*.apk
+share/*.aab
+share/phone-*.png

@@ -1,0 +1,79 @@
+{
+  "version": 1,
+  "nodes": {
+    "design-doc": {
+      "x": 96,
+      "y": 96
+    },
+    "pitch": {
+      "x": 96,
+      "y": 576
+    },
+    "mockup-gameplay": {
+      "x": 96,
+      "y": 1056
+    },
+    "keyart-title": {
+      "x": 656,
+      "y": 96
+    },
+    "chapter-cellar": {
+      "x": 656,
+      "y": 576
+    },
+    "chapter-ossuary": {
+      "x": 656,
+      "y": 1056
+    },
+    "chapter-hollow": {
+      "x": 1216,
+      "y": 96
+    },
+    "export-title-key": {
+      "x": 1776,
+      "y": 96
+    },
+    "export-chapter-1": {
+      "x": 1776,
+      "y": 576
+    },
+    "export-chapter-2": {
+      "x": 1776,
+      "y": 1056
+    },
+    "export-chapter-3": {
+      "x": 2336,
+      "y": 96
+    },
+    "chapter-drowned": {
+      "x": 2336,
+      "y": 576
+    },
+    "chapter-orchard": {
+      "x": 2336,
+      "y": 1056
+    },
+    "portrait-wren": {
+      "x": 2896,
+      "y": 96
+    },
+    "portrait-moth": {
+      "x": 2896,
+      "y": 576
+    },
+    "portrait-cinder": {
+      "x": 2896,
+      "y": 1056
+    },
+    "portrait-choir": {
+      "x": 3456,
+      "y": 96
+    }
+  },
+  "viewport": {
+    "x": 64,
+    "y": 32,
+    "zoom": 1
+  },
+  "view": "canvas"
+}

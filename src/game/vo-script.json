@@ -1,0 +1,202 @@
+{
+  "voice": "flux-colin-en",
+  "notes": "Deepgram Flux TTS narration, British narrator. The API key is supplied through DEEPGRAM_API_KEY when generating; never stored here.",
+  "lines": [
+    {
+      "key": "intro-1",
+      "speaker": "THE HOUSE",
+      "text": "Every house keeps a thread that should never be pulled.",
+      "file": "intro-1.mp3",
+      "est": 4.2
+    },
+    {
+      "key": "intro-2",
+      "speaker": "THE HOUSE",
+      "text": "But Wren heard her brother crying beneath the floorboards.",
+      "file": "intro-2.mp3",
+      "est": 3.8
+    },
+    {
+      "key": "intro-3",
+      "speaker": "THE HOUSE",
+      "text": "So she took the lantern. She followed the red thread down.",
+      "file": "intro-3.mp3",
+      "est": 4.3
+    },
+    {
+      "key": "intro-4",
+      "speaker": "THE HOUSE",
+      "text": "The cellar remembered hunger. The chapel remembered prayer. The water remembered a choir.",
+      "file": "intro-4.mp3",
+      "est": 6.0
+    },
+    {
+      "key": "intro-5",
+      "speaker": "THE HOUSE",
+      "text": "Keep the thread, little one. Something below is pulling back.",
+      "file": "intro-5.mp3",
+      "est": 4.8
+    },
+    {
+      "key": "chapter-0",
+      "speaker": "THE CELLAR",
+      "text": "The first door was never locked. It was only swollen shut with damp, and something on the other side had been scratching at it for years.",
+      "file": "chapter-cellar.mp3",
+      "est": 9.2
+    },
+    {
+      "key": "chapter-1",
+      "speaker": "THE OSSUARY",
+      "text": "They stacked the bones with care. Each skull had a name sewn into the forehead. None of the names were finished.",
+      "file": "chapter-ossuary.mp3",
+      "est": 9.0
+    },
+    {
+      "key": "chapter-2",
+      "speaker": "THE DROWNED GALLERY",
+      "text": "The water climbed the stairs to meet her. In the green light, painted saints turned their faces away.",
+      "file": "chapter-drowned.mp3",
+      "est": 8.4
+    },
+    {
+      "key": "chapter-3",
+      "speaker": "THE BONE ORCHARD",
+      "text": "The roots were not roots. The orchard had grown from everyone who ever said no to the house.",
+      "file": "chapter-orchard.mp3",
+      "est": 8.0
+    },
+    {
+      "key": "chapter-4",
+      "speaker": "THE HOLLOW",
+      "text": "There are no more stairs. Only a red room, warm as a mouth, and a heartbeat keeping time.",
+      "file": "chapter-hollow.mp3",
+      "est": 7.4
+    },
+    {
+      "key": "boss-glutton",
+      "speaker": "THE GLUTTON",
+      "text": "It ate the last child whole. It kept the shoes.",
+      "file": "boss-glutton.mp3",
+      "est": 4.4
+    },
+    {
+      "key": "boss-weaver",
+      "speaker": "THE WEAVER",
+      "text": "She stitches the small ones back wrong, then calls them hers.",
+      "file": "boss-weaver.mp3",
+      "est": 5.0
+    },
+    {
+      "key": "boss-drowned",
+      "speaker": "THE DROWNED CHOIR",
+      "text": "Sing, little lamb. The water only wants a voice.",
+      "file": "boss-drowned.mp3",
+      "est": 4.6
+    },
+    {
+      "key": "boss-orchard",
+      "speaker": "THE ROOTBOUND MATRON",
+      "text": "Every branch was a name. Every name was a warning.",
+      "file": "boss-orchard.mp3",
+      "est": 4.8
+    },
+    {
+      "key": "boss-heart",
+      "speaker": "THE HOLLOW HEART",
+      "text": "It has been waiting for a sibling.",
+      "file": "boss-heart.mp3",
+      "est": 3.6
+    },
+    {
+      "key": "mini-sexton",
+      "speaker": "THE SEXTON",
+      "text": "He buried them all, and forgot to stop.",
+      "file": "mini-sexton.mp3",
+      "est": 3.8
+    },
+    {
+      "key": "mini-curator",
+      "speaker": "THE CURATOR",
+      "text": "He keeps what the house cannot digest.",
+      "file": "mini-curator.mp3",
+      "est": 3.6
+    },
+    {
+      "key": "mini-bellwidow",
+      "speaker": "THE BELL WIDOW",
+      "text": "Every bell has a name. She remembers all of them.",
+      "file": "mini-bellwidow.mp3",
+      "est": 4.2
+    },
+    {
+      "key": "mini-tallyman",
+      "speaker": "THE TALLYMAN",
+      "text": "He counts what the house takes, and he is never wrong.",
+      "file": "mini-tallyman.mp3",
+      "est": 4.6
+    },
+    {
+      "key": "mini-gaunt",
+      "speaker": "THE GAUNT",
+      "text": "He has been hungry since before the stairs were built.",
+      "file": "mini-gaunt.mp3",
+      "est": 4.3
+    },
+    {
+      "key": "mini-carver",
+      "speaker": "THE CARVER",
+      "text": "She makes the small ones beautiful, then keeps the pieces.",
+      "file": "mini-carver.mp3",
+      "est": 4.8
+    },
+    {
+      "key": "victory",
+      "speaker": "THE HOUSE",
+      "text": "The heart stops. The house is only a house. A child climbs toward the light, and the thread trails behind them.",
+      "file": "ending-victory.mp3",
+      "est": 8.4
+    },
+    {
+      "key": "true-victory",
+      "speaker": "THE HOUSE",
+      "text": "The child cuts the thread. The house exhales. Below, something opens its eyes for the first time and calls them sibling.",
+      "file": "ending-true.mp3",
+      "est": 9.0
+    },
+    {
+      "key": "curse",
+      "speaker": "THE HOUSE",
+      "text": "The house has noticed you.",
+      "file": "curse.mp3",
+      "est": 3.2
+    },
+    {
+      "key": "low-health-wren",
+      "speaker": "THE THREAD",
+      "text": "Keep the thread, Wren. It is the only warm thing left.",
+      "file": "low-health-wren.mp3",
+      "est": 3.8
+    },
+    {
+      "key": "low-health-moth",
+      "speaker": "THE THREAD",
+      "text": "Breathe, Moth. The dust will hide you.",
+      "file": "low-health-moth.mp3",
+      "est": 3.2
+    },
+    {
+      "key": "low-health-cinder",
+      "speaker": "THE THREAD",
+      "text": "Do not go out, Cinder. Not yet.",
+      "file": "low-health-cinder.mp3",
+      "est": 3.0
+    },
+    {
+      "key": "low-health-choir",
+      "speaker": "THE THREAD",
+      "text": "Sing, Choir. Even here, something is listening.",
+      "file": "low-health-choir.mp3",
+      "est": 3.7
+    }
+  ]
+}

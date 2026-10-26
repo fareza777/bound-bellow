@@ -1,0 +1,15 @@
+{
+  "advertisement": {
+    "minimumDelayBetweenInterstitial": 60,
+    "initialInterstitialDelay": 0,
+    "interstitial": {
+      "preloadOnStart": "run_end",
+      "placementFallback": "run_end",
+      "placements": [
+        {
+          "id": "run_end"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,555 @@
+{
+  "version": 1,
+  "viewport": {
+    "width": 1280,
+    "height": 720
+  },
+  "nodes": [
+    {
+      "id": "design-doc",
+      "type": "document",
+      "title": "Main Design Document",
+      "description": "Single source of truth for the BOUND BELOW run structure, controls, content, visual direction and production asset list.",
+      "data": {
+        "documentId": "bound-below-design",
+        "references": [
+          {
+            "type": "node",
+            "nodeId": "mockup-gameplay"
+          },
+          {
+            "type": "node",
+            "nodeId": "export-title-key"
+          },
+          {
+            "type": "node",
+            "nodeId": "export-chapter-1"
+          },
+          {
+            "type": "node",
+            "nodeId": "export-chapter-2"
+          },
+          {
+            "type": "node",
+            "nodeId": "export-chapter-3"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pitch",
+      "type": "text",
+      "title": "Pitch",
+      "description": "One-paragraph pitch and visual keywords used to keep generated art on direction.",
+      "data": {
+        "text": "BOUND BELOW — a small hooded child follows a red thread under the floorboards into a hand-inked basement of damp stone, stitched burlap and candle wax. Tight top-down twin-stick roguelike: clear rooms, choose items, break rocks, find the door down. Visual keywords: iron-gall ink outlines, old paper grain, soot black, bone cream, dried blood, one red thread, candle gold. No clean vector gloss, no neon, no generic fantasy gloss.",
+        "instruction": "Use as style prompt source for mockups and key art."
+      }
+    },
+    {
+      "id": "mockup-gameplay",
+      "type": "image",
+      "title": "Reference mockup — gameplay visual direction",
+      "description": "Visual-direction mockup for the in-room gameplay frame: hand-inked top-down basement, hooded child, moths and stitched husks, hearts/coin HUD at the edges. Used as the style reference for production key art; not shipped as an in-game asset.",
+      "data": {
+        "prompt": "Original hand-inked storybook-horror game concept art, top-down view of a small stone basement room, no perspective camera tilt. A tiny hooded child in a ragged burlap cloak stands in the center with a faint red thread around one wrist, holding black inky tears that float upward. Around the room: two pale moths with dusty wings, a crawling stitched husk doll with button eyes, a cracked stone pillar, scattered bones, an iron-banded wooden door in the top wall, a small puddle reflecting candlelight. Dark soot-black ink outlines, rough iron-gall line work, old paper grain texture, muted palette of bone cream, parchment tan, damp olive stone, dried blood red and one thread-red accent. Candle-lit vignette, dusty air, subtle film grain. Minimal diegetic HUD icons only at the corners: three small stitched hearts top-left, a tiny gold coin and bone key, a scrap of parchment minimap top-right; no readable text anywhere. Wide 16:9 composition with the room centered and generous dark surround. Painterly yet graphic, tactile like an old print, cohesive, atmospheric, playful-creepy.",
+        "resolution": "1K",
+        "aspectRatio": "16:9",
+        "images": [
+          {
+            "type": "library",
+            "assetId": "4a1f5e1e-e0d6-4a51-98c9-c878afc3c903"
+          }
+        ],
+        "assetId": "4a1f5e1e-e0d6-4a51-98c9-c878afc3c903"
+      }
+    },
+    {
+      "id": "keyart-title",
+      "type": "image",
+      "title": "Production art — title key illustration",
+      "description": "Shipped title/menu backdrop. Child at the top of the cellar stairs, red thread running down into the dark; negative space at left and bottom for the DOM title typography and menu.",
+      "data": {
+        "prompt": "Original hand-inked storybook-horror key illustration for a game title screen, 16:9. A tiny hooded child in a ragged burlap cloak, seen from behind three-quarter, stands at the top of worn wooden cellar stairs holding a small lantern, looking down into a vast ink-black basement. One thin red thread unspools from the child's wrist and trails down the stairs into the darkness, where two pale moth wings and one pair of button eyes catch the light far below. Damp stone walls, hanging cobwebs, candle stubs, scattered bones, a cracked door frame. Iron-gall ink line work with rough scratchy outlines, old paper grain, soot black, bone cream, parchment tan, damp olive and candle gold, single thread-red accent. Warm candle pool around the child against deep dark. Composition: child small in the right third, stairs leading diagonally down to the right, large calm dark negative space in the left half and lower corner for a title wordmark and menu buttons. No text, no letters, no logo, no UI. Painterly yet graphic, tactile old print, cohesive with the reference moodboard, atmospheric, mysterious, handcrafted.",
+        "resolution": "1K",
+        "aspectRatio": "16:9",
+        "images": [
+          {
+            "type": "library",
+            "assetId": "4a1f5e1e-e0d6-4a51-98c9-c878afc3c903"
+          }
+        ],
+        "assetId": "2ce8dc7c-bc91-4112-9cce-443dc1a7dcf8"
+      }
+    },
+    {
+      "id": "chapter-cellar",
+      "type": "image",
+      "title": "Production art — Chapter I: The Cellar",
+      "description": "Floor 1 intro card backdrop. Flooded root cellar, candle stubs, crates; floor name and controls caption overlaid by DOM.",
+      "data": {
+        "prompt": "Original hand-inked storybook-horror environment illustration, 16:9, same visual language as the reference: iron-gall ink line work, rough outlines, old paper grain, soot black, bone cream, damp olive stone, candle gold, one thread-red accent. A quiet flooded cellar under an old house: low stone barrel-vault ceiling, shallow black water reflecting candle stubs, rotting wooden crates, roots pushing through mortar, a rusted iron door slightly ajar, tiny pale moths, scattered bones, a faint red thread running across the wet floor toward the far door. No characters in frame. No text, no letters, no logo, no UI. Cinematic low warm light, deep vignette, large calm dark areas for a chapter title overlay, painterly yet graphic, tactile old print, playful-creepy.",
+        "resolution": "1K",
+        "aspectRatio": "16:9",
+        "images": [
+          {
+            "type": "library",
+            "assetId": "4a1f5e1e-e0d6-4a51-98c9-c878afc3c903"
+          }
+        ],
+        "assetId": "9638c554-c35c-4caa-9e35-66f3bd38e734"
+      }
+    },
+    {
+      "id": "chapter-ossuary",
+      "type": "image",
+      "title": "Production art — Chapter II: The Ossuary",
+      "description": "Floor 2 intro card backdrop. Bone chapel with stacked skulls, wax candles, hanging stitched dolls; floor name overlaid by DOM.",
+      "data": {
+        "prompt": "Original hand-inked storybook-horror environment illustration, 16:9, same visual language as the reference: iron-gall ink line work, rough outlines, old paper grain, soot black, bone cream, cold teal-gray shadow, candle gold, one thread-red accent. A narrow chapel of bones beneath the house: walls stacked with skulls and femurs, a modest stone altar covered in melted wax and candle stubs, hanging stitched burlap dolls on red threads, faded painted saint on the back wall with its eyes scratched out, dust and cold haze. No characters in frame. No text, no letters, no logo, no UI. Cinematic candlelight from the altar, deep vignette, large calm dark areas for a chapter title overlay, painterly yet graphic, tactile old print, playful-creepy.",
+        "resolution": "1K",
+        "aspectRatio": "16:9",
+        "images": [
+          {
+            "type": "library",
+            "assetId": "4a1f5e1e-e0d6-4a51-98c9-c878afc3c903"
+          }
+        ],
+        "assetId": "5828bad2-f229-4ddf-8f26-2ef281ba4c8a"
+      }
+    },
+    {
+      "id": "chapter-hollow",
+      "type": "image",
+      "title": "Production art — Chapter V: The Hollow",
+      "description": "Painted chapter plate for the final chapter. 16:9, no text.",
+      "data": {
+        "prompt": "Original hand-inked storybook-horror environment illustration, 16:9, same visual language as the reference: iron-gall ink line work, rough outlines, old paper grain, soot black, bone cream, deep hollow rose and dried blood, candle gold, one bright thread-red accent. A vast organic chamber beneath the house, walls of stitched burlap and pale membrane, hundreds of red threads converging on a distant half-seen giant heart wrapped in sewing thread, small wooden stairs leading down into it, scattered children's shoes and bone buttons on the floor, dust and drifting embers. No characters in frame. No text, no letters, no logo, no UI. Cinematic dim red light with a warm candle glow near the stairs, deep vignette, large calm dark areas for a chapter title overlay, painterly yet graphic, tactile old print, playful-creepy.",
+        "resolution": "1K",
+        "aspectRatio": "16:9",
+        "images": [
+          {
+            "type": "library",
+            "assetId": "4a1f5e1e-e0d6-4a51-98c9-c878afc3c903"
+          }
+        ],
+        "assetId": "172bb7d7-fb0a-447f-a05c-d4ea7a93e367"
+      }
+    },
+    {
+      "id": "export-title-key",
+      "type": "asset",
+      "title": "Runtime asset — title key illustration",
+      "description": "Shipped 1440×810 JPEG backdrop used by the title and menu screen. Derived from keyart-title.",
+      "data": {
+        "assetId": "title-key-runtime",
+        "mediaType": "image"
+      }
+    },
+    {
+      "id": "export-chapter-1",
+      "type": "asset",
+      "title": "Runtime asset — Chapter I plate",
+      "description": "Shipped 1440×810 JPEG chapter plate used by the floor 1 intro card. Derived from chapter-cellar.",
+      "data": {
+        "assetId": "chapter-cellar-runtime",
+        "mediaType": "image"
+      }
+    },
+    {
+      "id": "export-chapter-2",
+      "type": "asset",
+      "title": "Runtime asset — Chapter II plate",
+      "description": "Shipped 1440×810 JPEG chapter plate used by the floor 2 intro card. Derived from chapter-ossuary.",
+      "data": {
+        "assetId": "chapter-ossuary-runtime",
+        "mediaType": "image"
+      }
+    },
+    {
+      "id": "export-chapter-3",
+      "type": "asset",
+      "title": "Runtime asset — Chapter V plate (The Hollow)",
+      "description": "Shipped 1440×810 JPEG chapter plate used by the Chapter V intro card. Derived from chapter-hollow.",
+      "data": {
+        "assetId": "chapter-hollow-runtime",
+        "mediaType": "image"
+      }
+    },
+    {
+      "id": "chapter-drowned",
+      "type": "image",
+      "title": "Production art — Chapter III: The Drowned Gallery",
+      "description": "Painted chapter plate for Chapter III, The Drowned Gallery. 16:9, no text.",
+      "data": {
+        "prompt": "Original hand-inked storybook-horror environment illustration, 16:9. A flooded underground picture gallery beneath the house: black-green water halfway up the walls, gilded frames hanging crooked with their painted saints drowned and flaking, a stone stair descending into the water, tall candles guttering on floating shelves, wet footprints that stop at the water's edge, a single red thread floating on the surface toward a distant doorway. Cold green-gold light, deep vignette, large calm dark negative space on the left and bottom for a chapter title overlay. Same original hand-inked storybook-horror visual language as the reference illustrations: iron-gall ink line work, rough scratchy outlines, old paper grain, soot black, bone cream, candle gold, one thread-red accent. No text, no letters, no logo, no UI. Painterly yet graphic, tactile old print, atmospheric, cohesive.",
+        "resolution": "1K",
+        "aspectRatio": "16:9",
+        "images": [
+          {
+            "type": "library",
+            "assetId": "2ce8dc7c-bc91-4112-9cce-443dc1a7dcf8"
+          },
+          {
+            "type": "library",
+            "assetId": "4a1f5e1e-e0d6-4a51-98c9-c878afc3c903"
+          }
+        ],
+        "assetId": "7b97d4af-9642-49fe-903a-1bf30e37eea4"
+      }
+    },
+    {
+      "id": "chapter-orchard",
+      "type": "image",
+      "title": "Production art — Chapter IV: The Bone Orchard",
+      "description": "Painted chapter plate for Chapter IV, The Bone Orchard. 16:9, no text.",
+      "data": {
+        "prompt": "Original hand-inked storybook-horror environment illustration, 16:9. A vast underground orchard grown from bone: pale trees of rib and femur, roots knitted through a dirt floor, heavy skull-fruit hanging from red threads, a winding path of flagstones, small candle shrines, a child's shoe half-buried, cold amber light filtering from above. Deep vignette, large calm dark negative space on the left and bottom for a chapter title overlay. Same original hand-inked storybook-horror visual language as the reference illustrations: iron-gall ink line work, rough scratchy outlines, old paper grain, soot black, bone cream, candle gold, one thread-red accent. No text, no letters, no logo, no UI. Painterly yet graphic, tactile old print, atmospheric, cohesive.",
+        "resolution": "1K",
+        "aspectRatio": "16:9",
+        "images": [
+          {
+            "type": "library",
+            "assetId": "2ce8dc7c-bc91-4112-9cce-443dc1a7dcf8"
+          },
+          {
+            "type": "library",
+            "assetId": "4a1f5e1e-e0d6-4a51-98c9-c878afc3c903"
+          }
+        ],
+        "assetId": "26fc4cc2-8d8d-4df5-aacf-aac7eab9feee"
+      }
+    },
+    {
+      "id": "portrait-wren",
+      "type": "image",
+      "title": "Character portrait — Wren",
+      "description": "Painted character-select portrait for Wren. 3:4, transparent-friendly dark background, no text.",
+      "data": {
+        "prompt": "Original hand-inked storybook-horror character portrait, 3:4 vertical. Wren, a small child in a ragged burlap hood and cloak, pale freckled face, dark tired eyes, a thin red thread tied around one wrist, holding a small brass lantern. Three-quarter upper-body composition, centered, dark soot background with soft candlelight, character filling the frame, clear silhouette and face, no text. Same original hand-inked storybook-horror visual language as the reference illustrations: iron-gall ink line work, rough scratchy outlines, old paper grain, soot black, bone cream, candle gold, one thread-red accent. No text, no letters, no logo, no UI. Painterly yet graphic, tactile old print, atmospheric, cohesive.",
+        "resolution": "1K",
+        "aspectRatio": "3:4",
+        "images": [
+          {
+            "type": "library",
+            "assetId": "2ce8dc7c-bc91-4112-9cce-443dc1a7dcf8"
+          },
+          {
+            "type": "library",
+            "assetId": "4a1f5e1e-e0d6-4a51-98c9-c878afc3c903"
+          }
+        ],
+        "assetId": "90ca3390-9657-45ab-bf30-6ab8d3cf3ec6"
+      }
+    },
+    {
+      "id": "portrait-moth",
+      "type": "image",
+      "title": "Character portrait — Moth",
+      "description": "Painted character-select portrait for Moth. 3:4, dark background, no text.",
+      "data": {
+        "prompt": "Original hand-inked storybook-horror character portrait, 3:4 vertical. Moth, a thin feral child in a pale tattered cloak with a collar of huge dusty moth wings, wide luminous eyes, chipped teeth, dark hair, a broken needle held like a blade. Three-quarter upper-body composition, centered, dark soot background with soft cool light, character filling the frame, clear silhouette and face, no text. Same original hand-inked storybook-horror visual language as the reference illustrations: iron-gall ink line work, rough scratchy outlines, old paper grain, soot black, bone cream, candle gold, one thread-red accent. No text, no letters, no logo, no UI. Painterly yet graphic, tactile old print, atmospheric, cohesive.",
+        "resolution": "1K",
+        "aspectRatio": "3:4",
+        "images": [
+          {
+            "type": "library",
+            "assetId": "2ce8dc7c-bc91-4112-9cce-443dc1a7dcf8"
+          },
+          {
+            "type": "library",
+            "assetId": "4a1f5e1e-e0d6-4a51-98c9-c878afc3c903"
+          }
+        ],
+        "assetId": "c9f79b4b-3737-4ad3-915c-981cbc35ccb3"
+      }
+    },
+    {
+      "id": "portrait-cinder",
+      "type": "image",
+      "title": "Character portrait — Cinder",
+      "description": "Painted character-select portrait for Cinder. 3:4, dark background, no text.",
+      "data": {
+        "prompt": "Original hand-inked storybook-horror character portrait, 3:4 vertical. Cinder, a stout child in a soot-black leather coat and heavy boots, ember cracks glowing in the skin of one arm, a brass bell strapped to the chest, a stubborn bruised face lit by orange coals. Three-quarter upper-body composition, centered, dark soot background with warm ember light, character filling the frame, clear silhouette and face, no text. Same original hand-inked storybook-horror visual language as the reference illustrations: iron-gall ink line work, rough scratchy outlines, old paper grain, soot black, bone cream, candle gold, one thread-red accent. No text, no letters, no logo, no UI. Painterly yet graphic, tactile old print, atmospheric, cohesive.",
+        "resolution": "1K",
+        "aspectRatio": "3:4",
+        "images": [
+          {
+            "type": "library",
+            "assetId": "2ce8dc7c-bc91-4112-9cce-443dc1a7dcf8"
+          },
+          {
+            "type": "library",
+            "assetId": "4a1f5e1e-e0d6-4a51-98c9-c878afc3c903"
+          }
+        ],
+        "assetId": "a0787472-ce75-498f-a5c2-2b8b52e91bb9"
+      }
+    },
+    {
+      "id": "portrait-choir",
+      "type": "image",
+      "title": "Character portrait — Choir",
+      "description": "Painted character-select portrait for Choir. 3:4, dark background, no text.",
+      "data": {
+        "prompt": "Original hand-inked storybook-horror character portrait, 3:4 vertical. Choir, a gaunt child in a ruined white choir robe with a stitched mouth, hollow black eyes, a halo of small candle flames above their head, pale hands folded, thread and wax dripping down the robe. Three-quarter upper-body composition, centered, dark soot background with one warm candle glow, character filling the frame, clear silhouette and face, no text. Same original hand-inked storybook-horror visual language as the reference illustrations: iron-gall ink line work, rough scratchy outlines, old paper grain, soot black, bone cream, candle gold, one thread-red accent. No text, no letters, no logo, no UI. Painterly yet graphic, tactile old print, atmospheric, cohesive.",
+        "resolution": "1K",
+        "aspectRatio": "3:4",
+        "images": [
+          {
+            "type": "library",
+            "assetId": "2ce8dc7c-bc91-4112-9cce-443dc1a7dcf8"
+          },
+          {
+            "type": "library",
+            "assetId": "4a1f5e1e-e0d6-4a51-98c9-c878afc3c903"
+          }
+        ],
+        "assetId": "80057958-9ecf-4cf0-9e97-cbacb91fef0b"
+      }
+    },
+    {
+      "id": "export-chapter-drowned",
+      "type": "asset",
+      "title": "Runtime asset — Chapter III plate (Drowned Gallery)",
+      "description": "Shipped 1440×810 JPEG chapter plate used by the Chapter III intro card. Derived from chapter-drowned.",
+      "data": {
+        "assetId": "chapter-drowned-runtime",
+        "mediaType": "image"
+      }
+    },
+    {
+      "id": "export-chapter-orchard",
+      "type": "asset",
+      "title": "Runtime asset — Chapter IV plate (Bone Orchard)",
+      "description": "Shipped 1440×810 JPEG chapter plate used by the Chapter IV intro card. Derived from chapter-orchard.",
+      "data": {
+        "assetId": "chapter-orchard-runtime",
+        "mediaType": "image"
+      }
+    },
+    {
+      "id": "export-portrait-wren",
+      "type": "asset",
+      "title": "Runtime asset — Wren portrait",
+      "description": "Shipped 3:4 portrait used by the Ledger character card. Derived from portrait-wren.",
+      "data": {
+        "assetId": "portrait-wren-runtime",
+        "mediaType": "image"
+      }
+    },
+    {
+      "id": "export-portrait-moth",
+      "type": "asset",
+      "title": "Runtime asset — Moth portrait",
+      "description": "Shipped 3:4 portrait used by the Ledger character card. Derived from portrait-moth.",
+      "data": {
+        "assetId": "portrait-moth-runtime",
+        "mediaType": "image"
+      }
+    },
+    {
+      "id": "export-portrait-cinder",
+      "type": "asset",
+      "title": "Runtime asset — Cinder portrait",
+      "description": "Shipped 3:4 portrait used by the Ledger character card. Derived from portrait-cinder.",
+      "data": {
+        "assetId": "portrait-cinder-runtime",
+        "mediaType": "image"
+      }
+    },
+    {
+      "id": "export-portrait-choir",
+      "type": "asset",
+      "title": "Runtime asset — Choir portrait",
+      "description": "Shipped 3:4 portrait used by the Ledger character card. Derived from portrait-choir.",
+      "data": {
+        "assetId": "portrait-choir-runtime",
+        "mediaType": "image"
+      }
+    },
+    {
+      "id": "store-icon",
+      "type": "asset",
+      "title": "Playgama app icon — Wren emblem",
+      "description": "800×800 app icon uploaded as the Playgama square cover/icon. The Wren portrait with a stitched red ring and vignette.",
+      "data": {
+        "assetId": "store-icon-800",
+        "mediaType": "image"
+      }
+    },
+    {
+      "id": "store-cover-square",
+      "type": "asset",
+      "title": "Playgama square cover",
+      "description": "800×800 square cover with title art, wordmark and feature badges.",
+      "data": {
+        "assetId": "store-cover-square",
+        "mediaType": "image"
+      }
+    },
+    {
+      "id": "store-cover-portrait",
+      "type": "asset",
+      "title": "Playgama portrait cover",
+      "description": "1080×1920 portrait cover with the Wren portrait and wordmark.",
+      "data": {
+        "assetId": "store-cover-portrait",
+        "mediaType": "image"
+      }
+    },
+    {
+      "id": "store-cover-landscape",
+      "type": "asset",
+      "title": "Playgama landscape cover",
+      "description": "1920×1080 landscape cover with the title key art, wordmark and feature badges.",
+      "data": {
+        "assetId": "store-cover-landscape",
+        "mediaType": "image"
+      }
+    },
+    {
+      "id": "store-shot-boss",
+      "type": "asset",
+      "title": "Store screenshot 01 — The Heart Stops",
+      "description": "1920×1080 gameplay screenshot with a hook caption.",
+      "data": {
+        "assetId": "store-shot-boss",
+        "mediaType": "image"
+      }
+    },
+    {
+      "id": "store-shot-library",
+      "type": "asset",
+      "title": "Store screenshot 02 — Every Room Has a Price",
+      "description": "1920×1080 gameplay screenshot with a hook caption.",
+      "data": {
+        "assetId": "store-shot-library",
+        "mediaType": "image"
+      }
+    },
+    {
+      "id": "store-shot-transform",
+      "type": "asset",
+      "title": "Store screenshot 03 — Become Something Else",
+      "description": "1920×1080 gameplay screenshot with a hook caption.",
+      "data": {
+        "assetId": "store-shot-transform",
+        "mediaType": "image"
+      }
+    },
+    {
+      "id": "store-shot-curator",
+      "type": "asset",
+      "title": "Store screenshot 04 — Every Lock Has a Name",
+      "description": "1920×1080 gameplay screenshot with a hook caption.",
+      "data": {
+        "assetId": "store-shot-curator",
+        "mediaType": "image"
+      }
+    },
+    {
+      "id": "store-play-store-icon",
+      "type": "asset",
+      "title": "Play Store icon — 512",
+      "description": "512×512 Play Store app icon derived from the Wren emblem.",
+      "data": {
+        "assetId": "store-icon-512",
+        "mediaType": "image"
+      }
+    },
+    {
+      "id": "store-feature-graphic",
+      "type": "asset",
+      "title": "Play Store feature graphic — 1024×500",
+      "description": "Play Store feature graphic derived from the title key art.",
+      "data": {
+        "assetId": "store-feature-graphic",
+        "mediaType": "image"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge-title-export",
+      "source": "keyart-title",
+      "target": "export-title-key"
+    },
+    {
+      "id": "edge-cellar-export",
+      "source": "chapter-cellar",
+      "target": "export-chapter-1"
+    },
+    {
+      "id": "edge-ossuary-export",
+      "source": "chapter-ossuary",
+      "target": "export-chapter-2"
+    },
+    {
+      "id": "edge-hollow-export",
+      "source": "chapter-hollow",
+      "target": "export-chapter-3"
+    },
+    {
+      "id": "edge-chapter-drowned-export",
+      "source": "chapter-drowned",
+      "target": "export-chapter-drowned"
+    },
+    {
+      "id": "edge-chapter-orchard-export",
+      "source": "chapter-orchard",
+      "target": "export-chapter-orchard"
+    },
+    {
+      "id": "edge-portrait-wren-export",
+      "source": "portrait-wren",
+      "target": "export-portrait-wren"
+    },
+    {
+      "id": "edge-portrait-moth-export",
+      "source": "portrait-moth",
+      "target": "export-portrait-moth"
+    },
+    {
+      "id": "edge-portrait-cinder-export",
+      "source": "portrait-cinder",
+      "target": "export-portrait-cinder"
+    },
+    {
+      "id": "edge-portrait-choir-export",
+      "source": "portrait-choir",
+      "target": "export-portrait-choir"
+    },
+    {
+      "id": "edge-store-icon-wren",
+      "source": "portrait-wren",
+      "target": "store-icon"
+    },
+    {
+      "id": "edge-store-portrait-wren",
+      "source": "portrait-wren",
+      "target": "store-cover-portrait"
+    },
+    {
+      "id": "edge-store-square-title",
+      "source": "keyart-title",
+      "target": "store-cover-square"
+    },
+    {
+      "id": "edge-store-landscape-title",
+      "source": "keyart-title",
+      "target": "store-cover-landscape"
+    },
+    {
+      "id": "edge-store-icon-512",
+      "source": "store-icon",
+      "target": "store-play-store-icon"
+    },
+    {
+      "id": "edge-store-feature-title",
+      "source": "keyart-title",
+      "target": "store-feature-graphic"
+    }
+  ],
+  "id": "58238eb8-a6b6-40a5-a1ed-36694f3c9604"
+}

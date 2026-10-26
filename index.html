@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#0d0b0a" />
+    <meta name="description" content="BOUND BELOW — a hand-inked descent through five chapters of basement. Clear rooms, gather relics, keep the thread. A fully voiced roguelike with four characters, a hundred collectibles, character skills, shifting room designs and secret rooms." />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%230c0a09'/%3E%3Cpath d='M16 27C9 22 5 17 5 12a6 6 0 0 1 11-3 6 6 0 0 1 11 3c0 5-4 10-11 15z' fill='%238d3028' stroke='%23eadfc8' stroke-width='1.2'/%3E%3Cpath d='M16 9v14' stroke='%23c24a33' stroke-width='1' stroke-dasharray='2 2'/%3E%3C/svg%3E"
+    />
+    <title>BOUND BELOW</title>
+    <script src="./playgama-bridge.js"></script>
+  </head>
+  <body>
+    <main id="app" aria-label="BOUND BELOW game">
+      <canvas id="game" aria-label="Game view"></canvas>
+
+      <section id="screen-title" class="screen screen--title">
+        <div class="screen-art screen-art--title" aria-hidden="true"></div>
+        <div class="screen-scrim screen-scrim--title" aria-hidden="true"></div>
+        <div class="title-content">
+          <p class="kicker">A hand-inked descent</p>
+          <h1 class="wordmark"><span>Bound</span><span class="wordmark-low">Below</span></h1>
+          <p class="tagline">
+            Wren followed a red thread under the floorboards.<br />
+            Five chapters down, something is still pulling.
+          </p>
+
+          <button id="btn-character" class="character-chip" type="button" aria-label="Change character">
+            <img id="title-character-portrait" class="character-chip-portrait" alt="" />
+            <span class="character-chip-copy">
+              <span class="character-chip-label">Descending as</span>
+              <strong id="title-character-name">Wren</strong>
+              <span id="title-character-epithet" class="character-chip-epithet">The Thread</span>
+            </span>
+            <span class="character-chip-change">Change</span>
+          </button>
+
+          <div class="title-actions">
+            <button id="btn-start" class="btn btn--primary" type="button">
+              Begin the descent
+            </button>
+            <button id="btn-daily" class="btn btn--ghost" type="button">Daily descent</button>
+            <button id="btn-ledger" class="btn btn--ghost" type="button">The Ledger</button>
+            <button id="btn-help" class="btn btn--ghost" type="button" aria-expanded="false">
+              How to play
+            </button>
+          </div>
+
+          <div class="seed-row">
+            <label class="field-label" for="seed-input">Seed</label>
+            <input
+              id="seed-input"
+              class="seed-input"
+              type="text"
+              maxlength="16"
+              autocomplete="off"
+              spellcheck="false"
+              placeholder="the house chooses"
+            />
+            <button id="btn-dice" class="icon-button" type="button" aria-label="Random seed" title="Random seed">✦</button>
+          </div>
+
+          <p id="title-record" class="record-line"></p>
+          <button id="btn-opening" class="text-link" type="button">Watch the opening</button>
+          <p class="title-note">Voice on. A run lasts 30–50 minutes.</p>
+
+          <div id="title-help" class="help-panel" hidden>
+            <div class="help-col">
+              <h3>Move</h3>
+              <p><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> or left thumb</p>
+            </div>
+            <div class="help-col">
+              <h3>Weep</h3>
+              <p><kbd>↑</kbd><kbd>←</kbd><kbd>↓</kbd><kbd>→</kbd>, hold mouse, or right thumb</p>
+            </div>
+            <div class="help-col">
+              <h3>Bomb</h3>
+              <p><kbd>E</kbd> / <kbd>Space</kbd> · breaks rock, hurts everything</p>
+            </div>
+            <div class="help-col">
+              <h3>Active relic</h3>
+              <p><kbd>Q</kbd> / gamepad B · spend charges, refill by clearing rooms</p>
+            </div>
+            <div class="help-col">
+              <h3>Skill</h3>
+              <p><kbd>F</kbd> / <kbd>Shift</kbd> / gamepad X · each child's own cooldown move</p>
+            </div>
+            <div class="help-col">
+              <h3>Pause</h3>
+              <p><kbd>Esc</kbd> / <kbd>P</kbd> · relics, curses, options</p>
+            </div>
+            <p class="help-foot">
+              Keys open treasure doors. Coins buy what the house offers. Hearts are half-hearts.
+              Doors close while a room still breathes. Bomb cracked walls; not every room is on the map.
+            </p>
+          </div>
+        </div>
+
+        <div class="title-legend" aria-hidden="true">
+          <span>WASD · move</span>
+          <span>Arrows · weep</span>
+          <span>E · bomb</span>
+          <span>F · skill</span>
+          <span>Esc · pause</span>
+        </div>
+      </section>
+
+      <section id="screen-chapter" class="screen screen--chapter" hidden>
+        <div id="chapter-art" class="screen-art screen-art--chapter"></div>
+        <div class="screen-scrim screen-scrim--chapter" aria-hidden="true"></div>
+        <div class="chapter-content">
+          <p id="chapter-kicker" class="kicker">Chapter I</p>
+          <h2 id="chapter-title" class="chapter-title">The Cellar</h2>
+          <p id="chapter-line" class="chapter-line"></p>
+          <p id="chapter-meta" class="chapter-meta">Floor I of V</p>
+          <p id="chapter-curse" class="chapter-curse" hidden></p>
+          <button id="btn-chapter" class="btn btn--ghost chapter-button" type="button">
+            Descend <span class="btn-hint">↩</span>
+          </button>
+        </div>
+        <div class="chapter-thread" aria-hidden="true"></div>
+      </section>
+
+      <section id="screen-pause" class="screen screen--pause" hidden>
+        <div class="panel panel--pause">
+          <div class="panel-head">
+            <p class="kicker">The thread holds</p>
+            <h2>Paused</h2>
+            <p class="panel-sub" id="pause-sub">The house waits.</p>
+          </div>
+          <div class="pause-grid">
+            <section class="pause-relics">
+              <h3 class="section-label">Relics</h3>
+              <ul id="pause-items" class="relic-list"></ul>
+              <p id="pause-empty" class="empty-note">Nothing yet — the pedestals are hungry.</p>
+            </section>
+            <section class="pause-controls">
+              <h3 class="section-label">Hands &amp; eyes</h3>
+              <dl class="control-list">
+                <div><dt>Move</dt><dd>WASD / left thumb</dd></div>
+                <div><dt>Weep</dt><dd>Arrows / mouse / right thumb</dd></div>
+                <div><dt>Bomb</dt><dd>E or Space</dd></div>
+                <div><dt>Active</dt><dd>Q / gamepad B</dd></div>
+                <div><dt>Skill</dt><dd>F / Shift / gamepad X</dd></div>
+                <div><dt>Pause</dt><dd>Esc or P</dd></div>
+                <div><dt>Doors</dt><dd>Close while a room is alive</dd></div>
+              </dl>
+              <p class="help-foot">
+                Half-heart = one wound. Red hearts heal. Keys open the treasure room.
+                The trapdoor opens only after the floor's keeper falls. Each room now has its own
+                interior, furniture and encounter: hold the wave, break the nests, survive the ambush.
+              </p>
+            </section>
+          </div>
+          <div id="pause-extra" class="pause-extra"></div>
+          <div class="panel-actions">
+            <button id="btn-resume" class="btn btn--primary" type="button">Resume</button>
+            <button id="btn-ledger-pause" class="btn btn--ghost" type="button">The Ledger</button>
+            <button id="btn-mute" class="btn btn--ghost" type="button">Sound: on</button>
+            <button id="btn-abandon" class="btn btn--danger" type="button">Abandon run</button>
+          </div>
+          <p class="panel-foot" id="pause-seed"></p>
+        </div>
+      </section>
+
+      <section id="screen-end" class="screen screen--end" hidden>
+        <div id="end-art" class="screen-art screen-art--end" aria-hidden="true"></div>
+        <div class="screen-scrim screen-scrim--end" aria-hidden="true"></div>
+        <div class="panel panel--end">
+          <p class="kicker" id="end-kicker">The thread snaps</p>
+          <h2 id="end-title">Bound below</h2>
+          <p id="end-line" class="end-line"></p>
+          <dl class="run-stats">
+            <div><dt>Floor</dt><dd id="stat-floor">I</dd></div>
+            <div><dt>Time</dt><dd id="stat-time">0:00</dd></div>
+            <div><dt>Rooms</dt><dd id="stat-rooms">0</dd></div>
+            <div><dt>Relics</dt><dd id="stat-relics">0</dd></div>
+            <div><dt>Fallen</dt><dd id="stat-kills">0</dd></div>
+          </dl>
+          <div class="end-relics">
+            <h3 class="section-label">Relics carried</h3>
+            <ul id="end-items" class="relic-list relic-list--row"></ul>
+            <p id="end-empty" class="empty-note">No relics. The thread was enough.</p>
+          </div>
+          <div class="panel-actions">
+            <button id="btn-again" class="btn btn--primary" type="button">Descend again</button>
+            <button id="btn-end-ledger" class="btn btn--ghost" type="button">The Ledger</button>
+            <button id="btn-title" class="btn btn--ghost" type="button">Title</button>
+          </div>
+          <p class="panel-foot" id="end-seed"></p>
+        </div>
+      </section>
+
+      <section id="screen-intro" class="screen screen--intro" hidden>
+        <div id="intro-art" class="intro-art" data-shot="0">
+          <img id="intro-image" class="intro-image" alt="" />
+        </div>
+        <div class="screen-scrim screen-scrim--intro"></div>
+        <div class="intro-bar intro-bar--top" aria-hidden="true"></div>
+        <div class="intro-bar intro-bar--bottom" aria-hidden="true"></div>
+        <div class="intro-frame">
+          <div class="intro-caption">
+            <p id="intro-speaker" class="kicker">The House</p>
+            <p id="intro-line" class="intro-line"></p>
+          </div>
+          <div class="intro-controls">
+            <div id="intro-dots" class="intro-dots" aria-hidden="true"></div>
+            <div class="intro-buttons">
+              <button id="btn-intro-skip" class="text-link" type="button">Skip the opening</button>
+              <button id="btn-intro-next" class="btn btn--ghost" type="button">Next</button>
+            </div>
+          </div>
+        </div>
+        <div id="intro-logo" class="intro-logo" hidden>
+          <p class="kicker">A hand-inked descent</p>
+          <h2>Bound<br /><span>Below</span></h2>
+          <p id="intro-logo-line" class="intro-logo-line">Five chapters. One red thread.</p>
+          <button id="btn-intro-done" class="btn btn--primary" type="button">Follow the thread</button>
+        </div>
+      </section>
+
+      <section id="screen-ledger" class="screen screen--ledger" hidden>
+        <div class="ledger-panel">
+          <header class="ledger-head">
+            <div>
+              <p class="kicker">What the house kept</p>
+              <h2>The Ledger</h2>
+              <p class="panel-sub" id="ledger-sub">Relics, names, marks and the shape of your descents.</p>
+            </div>
+            <button id="btn-ledger-close" class="ledger-close" type="button" aria-label="Close ledger">×</button>
+          </header>
+          <nav id="ledger-tabs" class="ledger-tabs" aria-label="Ledger sections"></nav>
+          <div id="ledger-body" class="ledger-body"></div>
+        </div>
+      </section>
+
+      <div id="portrait-hint" aria-hidden="true">
+        <span class="portrait-glyph">↻</span> the house is wide · rotate for a fuller view
+      </div>
+
+      <div id="toast-layer" class="toast-layer" aria-live="polite"></div>
+
+      <div id="touch-ui" aria-hidden="true">
+        <button id="btn-touch-pause" class="touch-button touch-button--small" type="button" aria-label="Pause">
+          <span class="pause-glyph" aria-hidden="true"><span></span><span></span></span>
+          <span class="touch-button-caption">PAUSE</span>
+        </button>
+        <button id="btn-touch-skill" class="touch-button touch-button--skill" type="button" aria-label="Use character skill">
+          <span class="touch-skill-glyph">✧</span>
+          <span id="touch-skill-count" class="touch-skill-count">READY</span>
+          <span class="touch-button-caption">SKILL</span>
+        </button>
+        <button id="btn-touch-active" class="touch-button touch-button--active" type="button" aria-label="Use active relic">
+          <span class="touch-active-glyph">✦</span>
+          <span id="touch-active-count" class="touch-active-count">0</span>
+          <span class="touch-button-caption">RELIC</span>
+        </button>
+        <button id="btn-touch-bomb" class="touch-button" type="button" aria-label="Place bomb">
+          <span class="touch-bomb-icon" aria-hidden="true"></span>
+          <span id="touch-bomb-count" class="touch-bomb-count">3</span>
+          <span class="touch-button-caption">BOMB</span>
+        </button>
+      </div>
+    </main>
+
+    <script type="module" src="/src/main.ts"></script>
+
+</body>
+</html>

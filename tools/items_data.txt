@@ -1,0 +1,471 @@
+  /* --- expansion relics --- */
+  {
+    id: "rusted-halo",
+    name: "Rusted Halo",
+    desc: "+1.3 damage · −6% speed",
+    color: "#d8a65b",
+    tags: ["wax"],
+    apply: (p) => {
+      p.stats.damage += 1.3;
+      p.stats.speed *= 0.94;
+    },
+    draw: motifIcon("#241d15", "#d8a65b", "halo"),
+  },
+  {
+    id: "drowned-psalm",
+    name: "Drowned Psalm",
+    desc: "+25% range · larger tears",
+    color: "#7fae9e",
+    tags: ["drowned"],
+    apply: (p) => {
+      p.stats.range += 0.25;
+      p.stats.tearSize += 0.15;
+    },
+    draw: motifIcon("#1b2422", "#7fae9e", "book"),
+  },
+  {
+    id: "rooted-heart",
+    name: "Rooted Heart",
+    desc: "+1 heart · −8% speed",
+    color: "#8fae64",
+    tags: ["drowned"],
+    apply: (p) => {
+      p.maxHp += 2;
+      p.hp = Math.min(p.maxHp, p.hp + 2);
+      p.stats.speed *= 0.92;
+    },
+    draw: motifIcon("#1f241a", "#8fae64", "root"),
+  },
+  {
+    id: "bone-needle",
+    name: "Bone Needle",
+    desc: "+1 pierce · faster tears",
+    color: "#d7c8ac",
+    tags: ["stitch"],
+    apply: (p) => {
+      p.stats.pierce += 1;
+      p.stats.shotSpeed += 50;
+    },
+    draw: motifIcon("#26231d", "#d7c8ac", "needle"),
+  },
+  {
+    id: "wax-seal",
+    name: "Wax Seal",
+    desc: "+0.8 damage · +1 bomb",
+    color: "#e0a24e",
+    tags: ["wax"],
+    apply: (p) => {
+      p.stats.damage += 0.8;
+      p.bombs = Math.min(99, p.bombs + 1);
+    },
+    draw: motifIcon("#2a2118", "#e0a24e", "candle"),
+  },
+  {
+    id: "choir-bell",
+    name: "Choir Bell",
+    desc: "A second bell circles you",
+    color: "#d9b06c",
+    apply: (p) => {
+      p.stats.orbitals += 1;
+    },
+    draw: motifIcon("#22201b", "#d9b06c", "bell"),
+  },
+  {
+    id: "gilded-tooth",
+    name: "Gilded Tooth",
+    desc: "+25% coins · +3% crit",
+    color: "#d8a65b",
+    tags: ["gilt"],
+    apply: (p) => {
+      p.stats.coinBonus += 0.25;
+      p.stats.crit += 0.03;
+    },
+    draw: motifIcon("#272116", "#d8a65b", "tooth"),
+  },
+  {
+    id: "hollow-nail",
+    name: "Hollow Nail",
+    desc: "+8% crit · −1 heart",
+    color: "#c24a33",
+    tags: ["stitch"],
+    apply: (p) => {
+      p.stats.crit += 0.08;
+      p.maxHp = Math.max(2, p.maxHp - 2);
+      p.hp = Math.min(p.hp, p.maxHp);
+    },
+    draw: motifIcon("#241a16", "#c24a33", "nail"),
+  },
+  {
+    id: "moth-dust",
+    name: "Moth Dust",
+    desc: "+10% speed · +4% crit",
+    color: "#cfc3a7",
+    apply: (p) => {
+      p.stats.speed *= 1.1;
+      p.stats.crit += 0.04;
+    },
+    draw: motifIcon("#24221c", "#cfc3a7", "wing"),
+  },
+  {
+    id: "black-milk",
+    name: "Black Milk",
+    desc: "+0.9 damage · poison tears",
+    color: "#d7c8ac",
+    tags: ["drowned"],
+    apply: (p) => {
+      p.stats.damage += 0.9;
+      p.stats.poison += 1;
+    },
+    draw: motifIcon("#1d1a17", "#d7c8ac", "bottle"),
+  },
+  {
+    id: "loose-thread",
+    name: "Loose Thread",
+    desc: "+16% weeping speed · shorter range",
+    color: "#c24a33",
+    tags: ["stitch"],
+    apply: (p) => {
+      p.stats.fireDelay *= 0.84;
+      p.stats.range -= 0.08;
+    },
+    draw: motifIcon("#281a15", "#c24a33", "knot"),
+  },
+  {
+    id: "bone-lattice",
+    name: "Bone Lattice",
+    desc: "Takes one less half-heart of damage",
+    color: "#cfc0a4",
+    apply: (p) => {
+      p.stats.armor += 1;
+    },
+    draw: motifIcon("#24211b", "#cfc0a4", "bone"),
+  },
+  {
+    id: "wicker-crown",
+    name: "Wicker Crown",
+    desc: "+0.5 damage · +6% fire rate · +4% speed",
+    color: "#b89a66",
+    tags: ["wax"],
+    apply: (p) => {
+      p.stats.damage += 0.5;
+      p.stats.fireDelay *= 0.94;
+      p.stats.speed *= 1.04;
+    },
+    draw: motifIcon("#241e16", "#b89a66", "crown"),
+  },
+  {
+    id: "drowned-coin",
+    name: "Drowned Coin",
+    desc: "+30% coins · a little luck",
+    color: "#8fae9e",
+    tags: ["gilt"],
+    apply: (p) => {
+      p.stats.coinBonus += 0.3;
+      p.stats.crit += 0.02;
+    },
+    draw: motifIcon("#1b2321", "#8fae9e", "coin"),
+  },
+  {
+    id: "sallow-candle",
+    name: "Sallow Candle",
+    desc: "+0.6 damage · larger tears",
+    color: "#e0a24e",
+    tags: ["wax"],
+    apply: (p) => {
+      p.stats.damage += 0.6;
+      p.stats.tearSize += 0.22;
+    },
+    draw: motifIcon("#2a2318", "#e0a24e", "candle"),
+  },
+  {
+    id: "ragged-hymn",
+    name: "Ragged Hymn",
+    desc: "+1 tear · wider spread · softer",
+    color: "#b8ab93",
+    apply: (p) => {
+      p.stats.shots += 1;
+      p.stats.spread += 0.08;
+      p.stats.damage *= 0.9;
+    },
+    draw: motifIcon("#221e1b", "#b8ab93", "mask"),
+  },
+  {
+    id: "nail-crown",
+    name: "Nail Crown",
+    desc: "+1.5 damage · +5% crit",
+    color: "#c24a33",
+    tags: ["stitch"],
+    apply: (p) => {
+      p.stats.damage += 1.5;
+      p.stats.crit += 0.05;
+    },
+    draw: motifIcon("#281a16", "#c24a33", "crown"),
+  },
+  {
+    id: "gilded-mirror",
+    name: "Gilded Mirror",
+    desc: "Tears bounce off walls · +12% range",
+    color: "#d8a65b",
+    tags: ["gilt"],
+    apply: (p) => {
+      p.stats.bounces += 1;
+      p.stats.range += 0.12;
+    },
+    draw: motifIcon("#262016", "#d8a65b", "mirror"),
+  },
+  /* --- active relics --- */
+  {
+    id: "ember-flask",
+    name: "Ember Flask",
+    desc: "Use: burst nearby enemies in flame",
+    color: "#e07a3a",
+    kind: "active",
+    maxCharges: 3,
+    activeEffect: { type: "blast", radius: 118, damage: 55 },
+    draw: motifIcon("#2a1a12", "#e07a3a", "flame", "active"),
+  },
+  {
+    id: "marrow-bomb",
+    name: "Marrow Bomb",
+    desc: "Use: a heavy bone blast around you",
+    color: "#d8a65b",
+    kind: "active",
+    maxCharges: 2,
+    activeEffect: { type: "blast", radius: 155, damage: 90 },
+    draw: motifIcon("#241c15", "#d8a65b", "bone", "active"),
+  },
+  {
+    id: "soot-bell",
+    name: "Soot Bell",
+    desc: "Use: a room-wide ring of soot and force",
+    color: "#b89a66",
+    kind: "active",
+    maxCharges: 4,
+    activeEffect: { type: "blast", radius: 340, damage: 28 },
+    draw: motifIcon("#211d18", "#b89a66", "bell", "active"),
+  },
+  {
+    id: "wax-candle",
+    name: "Wax Candle",
+    desc: "Use: mend one heart",
+    color: "#e0a24e",
+    kind: "active",
+    maxCharges: 3,
+    activeEffect: { type: "heal", amount: 2 },
+    draw: motifIcon("#2a2117", "#e0a24e", "candle", "active"),
+  },
+  {
+    id: "choir-hymn",
+    name: "Choir Hymn",
+    desc: "Use: hold every enemy still for four seconds",
+    color: "#9eb6ac",
+    kind: "active",
+    maxCharges: 3,
+    activeEffect: { type: "freeze", duration: 4 },
+    draw: motifIcon("#1d2222", "#9eb6ac", "mask", "active"),
+  },
+  {
+    id: "needle-fan",
+    name: "Needle Fan",
+    desc: "Use: a full ring of needle tears",
+    color: "#c24a33",
+    kind: "active",
+    maxCharges: 3,
+    activeEffect: { type: "volley", count: 12 },
+    draw: motifIcon("#261b16", "#c24a33", "needle", "active"),
+  },
+  {
+    id: "root-totem",
+    name: "Root Totem",
+    desc: "Use: root yourself in safety for four seconds",
+    color: "#8fae64",
+    kind: "active",
+    maxCharges: 2,
+    activeEffect: { type: "shield", duration: 4 },
+    draw: motifIcon("#1d221b", "#8fae64", "root", "active"),
+  },
+  {
+    id: "pocket-hatch",
+    name: "Pocket Hatch",
+    desc: "Use: slip to safety and clear the air",
+    color: "#c24a33",
+    kind: "active",
+    maxCharges: 4,
+    activeEffect: { type: "blink" },
+    draw: motifIcon("#221c17", "#c24a33", "drop", "active"),
+  },
+  {
+    id: "eye-of-the-house",
+    name: "Eye of the House",
+    desc: "Use: see the whole floor, including its secrets",
+    color: "#d8a65b",
+    kind: "active",
+    maxCharges: 2,
+    activeEffect: { type: "reveal" },
+    draw: motifIcon("#211b16", "#d8a65b", "eye", "active"),
+  },
+  {
+    id: "drowned-coin",
+    name: "Drowned Coin",
+    desc: "Use: spit up fifteen coins",
+    color: "#7fae9e",
+    kind: "active",
+    maxCharges: 3,
+    activeEffect: { type: "coins", amount: 15 },
+    draw: motifIcon("#1b2321", "#7fae9e", "coin", "active"),
+  },
+  {
+    id: "widow-spool",
+    name: "Widow's Spool",
+    desc: "Use: bind every enemy in thread for five seconds",
+    color: "#c24a33",
+    kind: "active",
+    maxCharges: 2,
+    activeEffect: { type: "freeze", duration: 5 },
+    draw: motifIcon("#241b18", "#c24a33", "spool", "active"),
+  },
+  {
+    id: "ledger-page",
+    name: "Ledger Page",
+    desc: "Use: rewrite the relics currently on offer",
+    color: "#d8a65b",
+    kind: "active",
+    maxCharges: 2,
+    activeEffect: { type: "reroll" },
+    draw: motifIcon("#262017", "#d8a65b", "book", "active"),
+  },
+  /* --- trinkets --- */
+  {
+    id: "moth-wing",
+    name: "Moth Wing",
+    desc: "+8% speed",
+    color: "#cfc3a7",
+    kind: "trinket",
+    apply: (p) => {
+      p.stats.speed *= 1.08;
+    },
+    draw: motifIcon("#22201c", "#cfc3a7", "wing", "trinket"),
+  },
+  {
+    id: "copper-pin",
+    name: "Copper Pin",
+    desc: "+20% coin drops",
+    color: "#d8a65b",
+    kind: "trinket",
+    apply: (p) => {
+      p.stats.coinBonus += 0.2;
+    },
+    draw: motifIcon("#242017", "#d8a65b", "coin", "trinket"),
+  },
+  {
+    id: "salt-packet",
+    name: "Salt Packet",
+    desc: "Nearby enemies move a little slower",
+    color: "#cfc8b4",
+    kind: "trinket",
+    apply: (p) => {
+      p.stats.enemySlow += 0.12;
+    },
+    draw: motifIcon("#23221d", "#cfc8b4", "bottle", "trinket"),
+  },
+  {
+    id: "rabbit-tooth",
+    name: "Rabbit Tooth",
+    desc: "+4% critical chance",
+    color: "#d7cab0",
+    kind: "trinket",
+    apply: (p) => {
+      p.stats.crit += 0.04;
+    },
+    draw: motifIcon("#221f1a", "#d7cab0", "tooth", "trinket"),
+  },
+  {
+    id: "choir-button",
+    name: "Choir Button",
+    desc: "+15% tear range",
+    color: "#b8ab93",
+    kind: "trinket",
+    apply: (p) => {
+      p.stats.range += 0.15;
+    },
+    draw: motifIcon("#23211c", "#b8ab93", "button", "trinket"),
+  },
+  {
+    id: "wax-finger",
+    name: "Wax Finger",
+    desc: "Wider bomb blasts",
+    color: "#e0a24e",
+    kind: "trinket",
+    apply: (p) => {
+      p.stats.explosionSize += 0.15;
+    },
+    draw: motifIcon("#272117", "#e0a24e", "candle", "trinket"),
+  },
+  {
+    id: "bloody-thimble",
+    name: "Bloody Thimble",
+    desc: "+0.7 damage",
+    color: "#c24a33",
+    kind: "trinket",
+    apply: (p) => {
+      p.stats.damage += 0.7;
+    },
+    draw: motifIcon("#271a17", "#c24a33", "hand", "trinket"),
+  },
+  {
+    id: "bone-die",
+    name: "Bone Die",
+    desc: "+3% crit · +10% coins",
+    color: "#d7cab0",
+    kind: "trinket",
+    apply: (p) => {
+      p.stats.crit += 0.03;
+      p.stats.coinBonus += 0.1;
+    },
+    draw: motifIcon("#231f1a", "#d7cab0", "dice", "trinket"),
+  },
+  {
+    id: "drowned-shell",
+    name: "Drowned Shell",
+    desc: "Takes one less half-heart of damage",
+    color: "#8fae9e",
+    kind: "trinket",
+    apply: (p) => {
+      p.stats.armor += 1;
+    },
+    draw: motifIcon("#1c2321", "#8fae9e", "shell", "trinket"),
+  },
+  {
+    id: "red-thread",
+    name: "Red Thread",
+    desc: "+10% weeping speed · −5% range",
+    color: "#c24a33",
+    kind: "trinket",
+    apply: (p) => {
+      p.stats.fireDelay *= 0.9;
+      p.stats.range -= 0.05;
+    },
+    draw: motifIcon("#281a16", "#c24a33", "knot", "trinket"),
+  },
+  {
+    id: "saints-nail",
+    name: "Saint's Nail",
+    desc: "+1 pierce",
+    color: "#d7cab0",
+    kind: "trinket",
+    apply: (p) => {
+      p.stats.pierce += 1;
+    },
+    draw: motifIcon("#24201a", "#d7cab0", "nail", "trinket"),
+  },
+  {
+    id: "hollow-button",
+    name: "Hollow Button",
+    desc: "Tears lean toward the nearest body",
+    color: "#b8ab93",
+    kind: "trinket",
+    apply: (p) => {
+      p.stats.homing += 0.4;
+    },
+    draw: motifIcon("#211f1a", "#b8ab93", "button", "trinket"),
+  },

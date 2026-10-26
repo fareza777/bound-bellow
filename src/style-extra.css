@@ -1,0 +1,570 @@
+.toast-layer {
+  position: absolute;
+  top: max(14px, env(safe-area-inset-top));
+  right: max(14px, env(safe-area-inset-right));
+  z-index: 80;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  pointer-events: none;
+  max-width: min(340px, 84vw);
+}
+
+.achievement-toast {
+  display: flex;
+  gap: 11px;
+  align-items: center;
+  padding: 11px 13px;
+  border: 1px solid rgba(216, 166, 91, 0.5);
+  background: rgba(12, 9, 7, 0.96);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.65);
+  animation: toast-in 300ms ease both;
+}
+
+.achievement-toast.is-out {
+  animation: toast-out 350ms ease both;
+}
+
+.achievement-toast-mark {
+  flex: none;
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(216, 166, 91, 0.55);
+  border-radius: 50%;
+  color: var(--gold);
+  font-size: 13px;
+}
+
+.achievement-toast strong {
+  display: block;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 17px;
+  color: var(--bone);
+}
+
+.achievement-toast span {
+  display: block;
+  margin-top: 2px;
+  color: rgba(182, 165, 137, 0.75);
+  font-size: 10px;
+  line-height: 1.35;
+}
+
+.achievement-toast .toast-kicker {
+  font-size: 7.5px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--thread);
+  margin-bottom: 2px;
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateX(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes toast-out {
+  to {
+    opacity: 0;
+    transform: translateX(18px);
+  }
+}
+
+.touch-button--active {
+  right: max(92px, calc(env(safe-area-inset-right) + 92px));
+  display: none;
+}
+
+.touch-button--active.is-visible {
+  display: grid;
+}
+
+.touch-button--skill {
+  right: max(174px, calc(env(safe-area-inset-right) + 174px));
+  bottom: max(18px, env(safe-area-inset-bottom));
+  display: grid;
+  border-color: rgba(216, 166, 91, 0.35);
+}
+
+.touch-skill-glyph {
+  display: grid;
+  place-items: center;
+  transform: translateY(-3px);
+  font-size: 23px;
+  line-height: 1;
+  color: #e0b46f;
+  text-shadow: 0 0 10px rgba(224, 180, 111, 0.35);
+}
+
+.touch-skill-count {
+  position: absolute;
+  top: 7px;
+  right: 8px;
+  font-size: 7.5px;
+  letter-spacing: 0.06em;
+  color: rgba(240, 203, 132, 0.9);
+}
+
+.touch-button--skill.is-cooling {
+  opacity: 0.52;
+  border-color: rgba(234, 223, 200, 0.16);
+}
+
+.touch-button--skill.is-cooling .touch-skill-glyph {
+  color: rgba(216, 166, 91, 0.5);
+}
+
+.touch-active-glyph {
+  font-size: 22px;
+  color: var(--gold);
+  line-height: 1;
+}
+
+.touch-active-count {
+  position: absolute;
+  right: 7px;
+  bottom: 5px;
+  color: rgba(234, 223, 200, 0.75);
+  font-size: 10px;
+}
+
+.portrait.touch-active .touch-button--active {
+  bottom: calc(50% - 33.8vw - 78px);
+  right: calc(max(18px, env(safe-area-inset-right)) + 74px);
+}
+
+@media (max-width: 900px) {
+  .ledger-panel {
+    height: 92dvh;
+  }
+  .ledger-grid--characters {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .ledger-grid--items {
+    grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+  }
+  .title-actions .btn {
+    flex: 1 1 calc(50% - 6px);
+  }
+}
+
+@media (max-width: 720px) {
+  .character-chip {
+    max-width: 100%;
+    margin-bottom: 14px;
+  }
+  .character-chip-portrait {
+    width: 40px;
+    height: 50px;
+  }
+  .character-chip strong {
+    font-size: 18px;
+  }
+  .character-chip-change {
+    padding-left: 8px;
+    font-size: 7px;
+  }
+  .title-actions {
+    gap: 8px;
+  }
+  .title-actions .btn {
+    padding-inline: 12px;
+    font-size: 10px;
+  }
+  .title-actions .btn--primary {
+    flex-basis: 100%;
+  }
+  .intro-frame {
+    padding: 20px 22px max(34px, 7vh);
+  }
+  .intro-caption,
+  .intro-controls {
+    max-width: 100%;
+  }
+  .intro-caption {
+    min-height: 130px;
+  }
+  .intro-line {
+    font-size: clamp(26px, 7.2vw, 40px);
+  }
+  .intro-controls {
+    margin-top: 18px;
+    flex-wrap: wrap;
+  }
+  .intro-logo h2 {
+    font-size: clamp(64px, 20vw, 110px);
+  }
+  .ledger-panel {
+    height: calc(100dvh - 20px);
+  }
+  .ledger-head {
+    padding: 18px 16px 10px;
+  }
+  .ledger-head h2 {
+    font-size: 38px;
+  }
+  .ledger-tabs {
+    padding: 0 8px;
+  }
+  .ledger-tab {
+    padding: 11px 9px;
+    font-size: 8.5px;
+    letter-spacing: 0.14em;
+  }
+  .ledger-body {
+    padding: 16px;
+  }
+  .ledger-grid--items {
+    grid-template-columns: 1fr 1fr;
+    gap: 7px;
+  }
+  .ledger-card {
+    padding: 8px;
+    gap: 8px;
+  }
+  .ledger-card-icon {
+    width: 30px;
+    height: 30px;
+  }
+  .ledger-card-name {
+    font-size: 14px;
+  }
+  .ledger-card-desc {
+    font-size: 10px;
+  }
+  .ledger-grid--bestiary {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .ledger-grid--characters {
+    gap: 8px;
+  }
+  .character-card-copy {
+    padding: 9px;
+  }
+  .character-card-copy strong {
+    font-size: 20px;
+  }
+  .character-card-copy p {
+    font-size: 10.5px;
+    min-height: 44px;
+  }
+  .option-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .option-range {
+    width: 100%;
+  }
+  .option-control {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .achievement-row {
+    padding: 11px;
+  }
+  .ledger-section-head h3 {
+    font-size: 21px;
+  }
+}
+
+@media (max-height: 560px) and (orientation: landscape) {
+  .character-chip {
+    display: none;
+  }
+  .title-actions {
+    margin-bottom: 10px;
+  }
+  .title-actions .btn {
+    min-height: 38px;
+  }
+  .ledger-panel {
+    height: 96dvh;
+  }
+  .ledger-head {
+    padding-top: 12px;
+    padding-bottom: 6px;
+  }
+  .ledger-head .panel-sub {
+    display: none;
+  }
+  .ledger-head h2 {
+    font-size: 32px;
+  }
+  .intro-caption {
+    min-height: 90px;
+  }
+  .intro-line {
+    font-size: clamp(24px, 4.8vw, 42px);
+  }
+  .intro-controls {
+    margin-top: 12px;
+    padding-top: 10px;
+  }
+}
+
+.ledger-card-icon canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.ledger-card-icon {
+  display: grid;
+  place-items: center;
+  color: rgba(201, 178, 139, 0.4);
+  font-family: var(--display);
+  font-size: 20px;
+}
+
+.screen-art--chapter[data-floor="2"] {
+  background-image: url("./assets/chapter-drowned.jpg");
+}
+
+.screen-art--chapter[data-floor="3"] {
+  background-image: url("./assets/chapter-orchard.jpg");
+}
+
+.screen-art--chapter[data-floor="4"] {
+  background-image: url("./assets/chapter-3.jpg");
+}
+
+.intro-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.screen--intro {
+  background: #050403;
+}
+
+.intro-art {
+  background-image: none !important;
+  opacity: 1;
+}
+
+
+@media (max-width: 640px) {
+  .ledger-tabs {
+    flex-wrap: wrap;
+    overflow-x: visible;
+    padding-bottom: 2px;
+  }
+  .ledger-tab {
+    flex: 1 0 auto;
+    padding: 9px 10px 10px;
+  }
+}
+
+@media (max-aspect-ratio: 1/1) {
+  .intro-image {
+    object-position: 74% 48%;
+    filter: brightness(1.18) saturate(1.05);
+  }
+}
+
+
+/* Keep achievement toasts clear of the minimap during a run. */
+#app.in-run .toast-layer {
+  top: max(184px, calc(env(safe-area-inset-top) + 184px));
+}
+
+
+/* ---------- Android / touch controls ---------- */
+
+.touch-button {
+  width: 70px;
+  height: 70px;
+  border: 1px solid rgba(234, 223, 200, 0.34);
+  background:
+    radial-gradient(circle at 38% 30%, rgba(70, 57, 43, 0.55), rgba(15, 12, 10, 0.92) 68%),
+    rgba(18, 14, 12, 0.86);
+  box-shadow:
+    0 0 0 5px rgba(8, 6, 5, 0.3),
+    0 12px 28px rgba(0, 0, 0, 0.38),
+    inset 0 0 18px rgba(216, 166, 91, 0.08);
+  color: var(--gold);
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  user-select: none;
+  transition: transform 90ms ease, background 120ms ease, border-color 120ms ease;
+}
+
+.touch-button::before {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border-radius: 50%;
+  border: 1px dashed rgba(216, 166, 91, 0.24);
+  pointer-events: none;
+}
+
+.touch-button:active {
+  transform: scale(0.93);
+  background:
+    radial-gradient(circle at 38% 30%, rgba(122, 54, 38, 0.7), rgba(30, 14, 11, 0.95) 70%),
+    rgba(60, 22, 18, 0.9);
+  border-color: rgba(240, 203, 132, 0.72);
+  box-shadow:
+    0 0 0 7px rgba(141, 48, 40, 0.18),
+    0 0 24px rgba(216, 166, 91, 0.16);
+}
+
+.touch-button--small {
+  width: 46px;
+  height: 46px;
+  left: max(18px, env(safe-area-inset-left));
+  bottom: max(22px, env(safe-area-inset-bottom));
+}
+
+.pause-glyph {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(-4px);
+}
+
+.pause-glyph span {
+  display: block;
+  width: 4px;
+  height: 16px;
+  border-radius: 1px;
+  background: linear-gradient(180deg, #f0cb84, #b98d51);
+  box-shadow: 0 0 8px rgba(216, 166, 91, 0.3);
+}
+
+.touch-button-caption {
+  position: absolute;
+  left: 50%;
+  bottom: 7px;
+  transform: translateX(-50%);
+  color: rgba(201, 178, 139, 0.72);
+  font-family: var(--serif);
+  font-size: 7px;
+  letter-spacing: 0.16em;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.touch-button--small .touch-button-caption {
+  bottom: 4px;
+  font-size: 6px;
+}
+
+.touch-button--active {
+  width: 62px;
+  height: 62px;
+  right: max(96px, calc(env(safe-area-inset-right) + 96px));
+  bottom: max(22px, env(safe-area-inset-bottom));
+}
+
+.touch-active-glyph {
+  display: grid;
+  place-items: center;
+  transform: translateY(-3px);
+}
+
+.touch-active-glyph canvas {
+  width: 27px !important;
+  height: 27px !important;
+}
+
+.touch-active-count {
+  top: 8px;
+  right: 9px;
+  bottom: auto;
+  color: rgba(240, 203, 132, 0.9);
+  font-size: 8px;
+}
+
+.touch-bomb-count {
+  top: 8px;
+  right: 9px;
+  bottom: auto;
+  font-size: 9px;
+}
+
+@media (max-aspect-ratio: 1/1) {
+  .touch-button {
+    width: 76px;
+    height: 76px;
+  }
+  .touch-button--small {
+    width: 50px;
+    height: 50px;
+  }
+  .touch-button--active {
+    width: 66px;
+    height: 66px;
+  }
+}
+
+body {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Pause is a small top-right tab; the minimap lives inside the game field. */
+.touch-button--small {
+  top: max(14px, env(safe-area-inset-top));
+  right: max(14px, env(safe-area-inset-right));
+  bottom: auto;
+  left: auto;
+}
+
+.portrait.touch-active .touch-button--small {
+  top: max(14px, env(safe-area-inset-top));
+  right: max(14px, env(safe-area-inset-right));
+  bottom: auto;
+  left: auto;
+}
+
+/* Portrait: keep the action buttons at the bottom edge, not under the field. */
+.portrait.touch-active .touch-button {
+  bottom: max(22px, env(safe-area-inset-bottom));
+}
+.portrait.touch-active .touch-button--active {
+  bottom: max(22px, env(safe-area-inset-bottom));
+  right: calc(max(18px, env(safe-area-inset-right)) + 102px);
+}
+.portrait.touch-active .touch-button--skill {
+  bottom: max(22px, env(safe-area-inset-bottom));
+  right: calc(max(18px, env(safe-area-inset-right)) + 176px);
+}
+@media (max-aspect-ratio: 1/1) {
+  .touch-button--skill {
+    right: max(188px, calc(env(safe-area-inset-right) + 188px));
+    width: 66px;
+    height: 66px;
+  }
+}
+@media (max-width: 520px) {
+  .touch-button--skill {
+    right: max(176px, calc(env(safe-area-inset-right) + 176px));
+    width: 54px;
+    height: 54px;
+  }
+  .portrait.touch-active .touch-button--skill {
+    right: calc(max(18px, env(safe-area-inset-right)) + 176px);
+  }
+  .touch-skill-glyph {
+    font-size: 19px;
+  }
+  .touch-skill-count {
+    font-size: 6.5px;
+    top: 5px;
+    right: 6px;
+  }
+}

@@ -1,0 +1,365 @@
+[
+  {
+    "recoveryId": "c1127b85-cb70-4fd4-9467-df3a99f3644f",
+    "id": "8c9f22bd-de06-47cb-9a5c-0e757747300f",
+    "toolId": "generate-image",
+    "createdAt": "2026-10-25T04:09:42.221Z",
+    "status": "succeeded",
+    "title": "Original hand-inked storybook-horror character portrait, 3:4 vertical. Choir, a gaunt child in a ruined white choir robe with a stitched mouth, hollow black eyes, a halo of small candle flames above t",
+    "context": {
+      "projectId": "bd385409-95e7-478a-9e8f-379a4fadb8d0",
+      "boardId": "58238eb8-a6b6-40a5-a1ed-36694f3c9604",
+      "nodeId": "portrait-choir"
+    },
+    "model": {
+      "provider": "openrouter",
+      "id": "openai/gpt-image-2.5-flare"
+    },
+    "run": {
+      "id": "f0b1bb04-9b89-4318-94ec-c589dbdf09d5",
+      "toolId": "generate-image",
+      "model": {
+        "provider": "openrouter",
+        "id": "openai/gpt-image-2.5-flare"
+      },
+      "createdAt": "2026-10-25T04:10:03.486Z",
+      "files": [
+        {
+          "name": "output.png",
+          "mediaType": "image/png",
+          "assetId": "80057958-9ecf-4cf0-9e97-cbacb91fef0b"
+        }
+      ]
+    }
+  },
+  {
+    "recoveryId": "107e5e21-52b4-416b-b082-1ff9ac2c4faa",
+    "id": "8a4c7842-e707-4fef-add9-815f35d759cf",
+    "toolId": "generate-image",
+    "createdAt": "2026-10-25T04:09:03.525Z",
+    "status": "succeeded",
+    "title": "Original hand-inked storybook-horror character portrait, 3:4 vertical. Cinder, a stout child in a soot-black leather coat and heavy boots, ember cracks glowing in the skin of one arm, a brass bell str",
+    "context": {
+      "projectId": "bd385409-95e7-478a-9e8f-379a4fadb8d0",
+      "boardId": "58238eb8-a6b6-40a5-a1ed-36694f3c9604",
+      "nodeId": "portrait-cinder"
+    },
+    "model": {
+      "provider": "openrouter",
+      "id": "openai/gpt-image-2.5-flare"
+    },
+    "run": {
+      "id": "304df74f-26bd-47bd-ae60-d16408d4be69",
+      "toolId": "generate-image",
+      "model": {
+        "provider": "openrouter",
+        "id": "openai/gpt-image-2.5-flare"
+      },
+      "createdAt": "2026-10-25T04:09:23.961Z",
+      "files": [
+        {
+          "name": "output.png",
+          "mediaType": "image/png",
+          "assetId": "a0787472-ce75-498f-a5c2-2b8b52e91bb9"
+        }
+      ]
+    }
+  },
+  {
+    "recoveryId": "3b81878e-5b6b-4167-b2ba-77cca59875c0",
+    "id": "b1cd46b6-ccad-41a2-a25c-d38de94af97d",
+    "toolId": "generate-image",
+    "createdAt": "2026-10-25T04:08:16.503Z",
+    "status": "succeeded",
+    "title": "Original hand-inked storybook-horror character portrait, 3:4 vertical. Moth, a thin feral child in a pale tattered cloak with a collar of huge dusty moth wings, wide luminous eyes, chipped teeth, dark",
+    "context": {
+      "projectId": "bd385409-95e7-478a-9e8f-379a4fadb8d0",
+      "boardId": "58238eb8-a6b6-40a5-a1ed-36694f3c9604",
+      "nodeId": "portrait-moth"
+    },
+    "model": {
+      "provider": "openrouter",
+      "id": "openai/gpt-image-2.5-flare"
+    },
+    "run": {
+      "id": "cdbd7522-2ae0-4f09-aa4c-dddf21308b6b",
+      "toolId": "generate-image",
+      "model": {
+        "provider": "openrouter",
+        "id": "openai/gpt-image-2.5-flare"
+      },
+      "createdAt": "2026-10-25T04:08:43.639Z",
+      "files": [
+        {
+          "name": "output.png",
+          "mediaType": "image/png",
+          "assetId": "c9f79b4b-3737-4ad3-915c-981cbc35ccb3"
+        }
+      ]
+    }
+  },
+  {
+    "recoveryId": "4edc6d9b-4da1-470b-959c-2a94967bc72f",
+    "id": "36341357-323c-41c7-8c0f-58a47820ee2f",
+    "toolId": "generate-image",
+    "createdAt": "2026-10-25T04:07:32.636Z",
+    "status": "succeeded",
+    "title": "Original hand-inked storybook-horror character portrait, 3:4 vertical. Wren, a small child in a ragged burlap hood and cloak, pale freckled face, dark tired eyes, a thin red thread tied around one wri",
+    "context": {
+      "projectId": "bd385409-95e7-478a-9e8f-379a4fadb8d0",
+      "boardId": "58238eb8-a6b6-40a5-a1ed-36694f3c9604",
+      "nodeId": "portrait-wren"
+    },
+    "model": {
+      "provider": "openrouter",
+      "id": "openai/gpt-image-2.5-flare"
+    },
+    "run": {
+      "id": "edfb326b-a360-4dc7-9dd8-ac472b83c6dd",
+      "toolId": "generate-image",
+      "model": {
+        "provider": "openrouter",
+        "id": "openai/gpt-image-2.5-flare"
+      },
+      "createdAt": "2026-10-25T04:07:56.862Z",
+      "files": [
+        {
+          "name": "output.png",
+          "mediaType": "image/png",
+          "assetId": "90ca3390-9657-45ab-bf30-6ab8d3cf3ec6"
+        }
+      ]
+    }
+  },
+  {
+    "recoveryId": "2b056c88-b47e-4f6f-9dcb-77d3e3b00d70",
+    "id": "02a099a8-743e-4d19-9c17-bc0ee3ebf7c9",
+    "toolId": "generate-image",
+    "createdAt": "2026-10-25T04:06:44.764Z",
+    "status": "succeeded",
+    "title": "Original hand-inked storybook-horror environment illustration, 16:9. A vast underground orchard grown from bone: pale trees of rib and femur, roots knitted through a dirt floor, heavy skull-fruit hang",
+    "context": {
+      "projectId": "bd385409-95e7-478a-9e8f-379a4fadb8d0",
+      "boardId": "58238eb8-a6b6-40a5-a1ed-36694f3c9604",
+      "nodeId": "chapter-orchard"
+    },
+    "model": {
+      "provider": "openrouter",
+      "id": "openai/gpt-image-2.5-flare"
+    },
+    "run": {
+      "id": "7052227a-ec6f-4d0c-9098-4ddf4cfd055d",
+      "toolId": "generate-image",
+      "model": {
+        "provider": "openrouter",
+        "id": "openai/gpt-image-2.5-flare"
+      },
+      "createdAt": "2026-10-25T04:07:15.751Z",
+      "files": [
+        {
+          "name": "output.png",
+          "mediaType": "image/png",
+          "assetId": "26fc4cc2-8d8d-4df5-aacf-aac7eab9feee"
+        }
+      ]
+    }
+  },
+  {
+    "recoveryId": "41de92ec-7dcd-486b-988d-8c646d63b498",
+    "id": "5848bbc3-db89-485d-8b60-0ca9ef54e61e",
+    "toolId": "generate-image",
+    "createdAt": "2026-10-25T04:06:00.638Z",
+    "status": "succeeded",
+    "title": "Original hand-inked storybook-horror environment illustration, 16:9. A flooded underground picture gallery beneath the house: black-green water halfway up the walls, gilded frames hanging crooked with",
+    "context": {
+      "projectId": "bd385409-95e7-478a-9e8f-379a4fadb8d0",
+      "boardId": "58238eb8-a6b6-40a5-a1ed-36694f3c9604",
+      "nodeId": "chapter-drowned"
+    },
+    "model": {
+      "provider": "openrouter",
+      "id": "openai/gpt-image-2.5-flare"
+    },
+    "run": {
+      "id": "d879394d-5386-45d4-9849-281615e7bcac",
+      "toolId": "generate-image",
+      "model": {
+        "provider": "openrouter",
+        "id": "openai/gpt-image-2.5-flare"
+      },
+      "createdAt": "2026-10-25T04:06:26.544Z",
+      "files": [
+        {
+          "name": "output.png",
+          "mediaType": "image/png",
+          "assetId": "7b97d4af-9642-49fe-903a-1bf30e37eea4"
+        }
+      ]
+    }
+  },
+  {
+    "recoveryId": "c6db65f0-4970-4823-801c-067e95d741e7",
+    "id": "72f07d45-cece-40ab-b2b4-88b5a0928421",
+    "toolId": "generate-image",
+    "createdAt": "2026-10-25T02:38:35.581Z",
+    "status": "succeeded",
+    "title": "Original hand-inked storybook-horror environment illustration, 16:9, same visual language as the reference: iron-gall ink line work, rough outlines, old paper grain, soot black, bone cream, deep hollo",
+    "context": {
+      "projectId": "bd385409-95e7-478a-9e8f-379a4fadb8d0",
+      "boardId": "58238eb8-a6b6-40a5-a1ed-36694f3c9604",
+      "nodeId": "chapter-hollow"
+    },
+    "model": {
+      "provider": "openrouter",
+      "id": "openai/gpt-image-2.5-flare"
+    },
+    "run": {
+      "id": "3755f741-8c3b-4770-91c4-8e653b3bf973",
+      "toolId": "generate-image",
+      "model": {
+        "provider": "openrouter",
+        "id": "openai/gpt-image-2.5-flare"
+      },
+      "createdAt": "2026-10-25T02:38:56.843Z",
+      "files": [
+        {
+          "name": "output.png",
+          "mediaType": "image/png",
+          "assetId": "172bb7d7-fb0a-447f-a05c-d4ea7a93e367"
+        }
+      ]
+    }
+  },
+  {
+    "recoveryId": "26503d87-6406-4a36-aa86-353a6fbf9ed5",
+    "id": "d233b62f-2a6b-47b7-8dc1-2fff0ce98e7c",
+    "toolId": "generate-image",
+    "createdAt": "2026-10-25T02:38:07.246Z",
+    "status": "succeeded",
+    "title": "Original hand-inked storybook-horror environment illustration, 16:9, same visual language as the reference: iron-gall ink line work, rough outlines, old paper grain, soot black, bone cream, cold teal-",
+    "context": {
+      "projectId": "bd385409-95e7-478a-9e8f-379a4fadb8d0",
+      "boardId": "58238eb8-a6b6-40a5-a1ed-36694f3c9604",
+      "nodeId": "chapter-ossuary"
+    },
+    "model": {
+      "provider": "openrouter",
+      "id": "openai/gpt-image-2.5-flare"
+    },
+    "run": {
+      "id": "ca64f84a-8a2c-4d78-b93a-5e80ee1198f3",
+      "toolId": "generate-image",
+      "model": {
+        "provider": "openrouter",
+        "id": "openai/gpt-image-2.5-flare"
+      },
+      "createdAt": "2026-10-25T02:38:26.347Z",
+      "files": [
+        {
+          "name": "output.png",
+          "mediaType": "image/png",
+          "assetId": "5828bad2-f229-4ddf-8f26-2ef281ba4c8a"
+        }
+      ]
+    }
+  },
+  {
+    "recoveryId": "34f1695d-a5ac-4929-8d76-aa794ae88ec9",
+    "id": "d6967de7-e346-446c-9340-1dca2d45a450",
+    "toolId": "generate-image",
+    "createdAt": "2026-10-25T02:37:34.437Z",
+    "status": "succeeded",
+    "title": "Original hand-inked storybook-horror environment illustration, 16:9, same visual language as the reference: iron-gall ink line work, rough outlines, old paper grain, soot black, bone cream, damp olive",
+    "context": {
+      "projectId": "bd385409-95e7-478a-9e8f-379a4fadb8d0",
+      "boardId": "58238eb8-a6b6-40a5-a1ed-36694f3c9604",
+      "nodeId": "chapter-cellar"
+    },
+    "model": {
+      "provider": "openrouter",
+      "id": "openai/gpt-image-2.5-flare"
+    },
+    "run": {
+      "id": "74906f5c-3ad8-4de0-9ee4-35d6d90b007f",
+      "toolId": "generate-image",
+      "model": {
+        "provider": "openrouter",
+        "id": "openai/gpt-image-2.5-flare"
+      },
+      "createdAt": "2026-10-25T02:37:57.640Z",
+      "files": [
+        {
+          "name": "output.png",
+          "mediaType": "image/png",
+          "assetId": "9638c554-c35c-4caa-9e35-66f3bd38e734"
+        }
+      ]
+    }
+  },
+  {
+    "recoveryId": "7672083c-c2a5-4218-9cc4-90d34e3304e4",
+    "id": "80c7640c-172b-4f9b-8035-5daa373c2305",
+    "toolId": "generate-image",
+    "createdAt": "2026-10-25T02:36:57.831Z",
+    "status": "succeeded",
+    "title": "Original hand-inked storybook-horror key illustration for a game title screen, 16:9. A tiny hooded child in a ragged burlap cloak, seen from behind three-quarter, stands at the top of worn wooden cell",
+    "context": {
+      "projectId": "bd385409-95e7-478a-9e8f-379a4fadb8d0",
+      "boardId": "58238eb8-a6b6-40a5-a1ed-36694f3c9604",
+      "nodeId": "keyart-title"
+    },
+    "model": {
+      "provider": "openrouter",
+      "id": "openai/gpt-image-2.5-flare"
+    },
+    "run": {
+      "id": "3a974c23-8d33-440b-b8d9-58aae775aed5",
+      "toolId": "generate-image",
+      "model": {
+        "provider": "openrouter",
+        "id": "openai/gpt-image-2.5-flare"
+      },
+      "createdAt": "2026-10-25T02:37:24.572Z",
+      "files": [
+        {
+          "name": "output.png",
+          "mediaType": "image/png",
+          "assetId": "2ce8dc7c-bc91-4112-9cce-443dc1a7dcf8"
+        }
+      ]
+    }
+  },
+  {
+    "recoveryId": "51199946-a59b-4ef5-ba91-456c64cb530c",
+    "id": "51a50508-1627-4b2c-bc4f-e6114806aacd",
+    "toolId": "generate-image",
+    "createdAt": "2026-10-25T02:35:46.643Z",
+    "status": "succeeded",
+    "title": "Original hand-inked storybook-horror game concept art, top-down view of a small stone basement room, no perspective camera tilt. A tiny hooded child in a ragged burlap cloak stands in the center with ",
+    "context": {
+      "projectId": "bd385409-95e7-478a-9e8f-379a4fadb8d0",
+      "boardId": "58238eb8-a6b6-40a5-a1ed-36694f3c9604",
+      "nodeId": "mockup-gameplay"
+    },
+    "model": {
+      "provider": "openrouter",
+      "id": "openai/gpt-image-2.5-flare"
+    },
+    "run": {
+      "id": "b9897ce0-8c15-4966-8dd9-ff5398692f8f",
+      "toolId": "generate-image",
+      "model": {
+        "provider": "openrouter",
+        "id": "openai/gpt-image-2.5-flare"
+      },
+      "createdAt": "2026-10-25T02:36:04.227Z",
+      "files": [
+        {
+          "name": "output.png",
+          "mediaType": "image/png",
+          "assetId": "4a1f5e1e-e0d6-4a51-98c9-c878afc3c903"
+        }
+      ]
+    }
+  }
+]
