@@ -106,7 +106,7 @@ The interior changes the baked floor and wall dressing, the obstacle mix and the
 - **Chapel** — an aisle runner, pews, banners and a rose window.
 - **Flooded** — standing water, caustics, waterline stains and wet webs.
 - **Pantry** — flour, jars, shelves and scattered stores.
-- **Workshop** — oil, chalk circles, gear marks and tools.
+- **Workshop** — oil, chalk tool outlines, sawdust and tools.
 - **Nest** — root tendrils, red thread, egg sacs and a pulsing warmth.
 - **Orchard** — soil, roots, fallen leaves and split stone.
 
@@ -198,7 +198,7 @@ Each main boss has a phase cycle, a phase-two minion wave, a voiced introduction
 - **Palette:** soot `#141011`, bone `#e8dcc4`, parchment `#c9b795`, dried blood `#8e2b2b`, thread red `#b8402f`, candle `#e0a24e`.
 - **Chapter palettes:** Cellar olive `#5d6b4a`; Ossuary teal `#4f6f6d`; Drowned Gallery green-gold `#5d7a68`; Bone Orchard amber `#8a6a3d`; Hollow rose `#6e2f3a`.
 - **Camera:** fixed per room, whole room visible, like a stage. Rooms sit inside a dark surround that carries the HUD.
-- **Room identity:** floor/wall dressing is cached per room and combines chapter, interior, layout and seed. Each chapter adds its own inlaid stone border, floor inlay (drain grates, slab seams, wave grooves and root inlays — no painted circles), wall props (cellar beams and cupboards, ossuary niches and bone stacks, drowned painted panels and waterline, orchard roots and hanging pods, hollow veins and rib arches) plus a coloured light shaft. Start, treasure, shop, library, challenge, vault and boss rooms get a room-role inlay (diamond, rectangular platform, rug or chalk boundary) or prop set, never a floating ring. Animation adds water shimmer, spores, candle flicker, dust and torch glow without changing collision.
+- **Room identity:** floor/wall dressing is cached per room and combines chapter, interior, layout and seed. Each chapter adds natural floor wear (wet stone, slab seams, wave grooves, root paths and vein cracks — no painted circles or boxes), wall props (cellar beams and cupboards, ossuary niches and bone stacks, drowned painted panels and waterline, orchard roots and hanging pods, hollow veins and rib arches) plus a coloured light shaft. Start, treasure, shop, library, challenge, vault and boss rooms get a room-role prop set built from wall furniture and candles; no floating rings or painted boxes on the playfield. Animation adds water shimmer, spores, candle flicker, dust and torch glow without changing collision.
 - **Motion:** stepped sprite wobble for enemies, smooth 60 fps movement, cloth sway, floating dust, ink-fade menus. Screen shake and flashes respect settings and `prefers-reduced-motion`.
 - **Generated vs. code-drawn:** generated illustration is reserved for the title, five chapter plates and four character portraits. Gameplay actors, rooms, items, HUD icons, FX and audio are code-drawn/synthesized so they stay crisp, small and consistent.
 

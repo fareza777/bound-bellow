@@ -307,17 +307,27 @@ function drawInteriorFloor(
       const x = rng.range(20, ROOM_W - 20);
       const y = rng.range(30, ROOM_H - 20);
       const rx = rng.range(34, 92);
-      const g = ctx.createRadialGradient(x, y, 2, x, y, rx);
+      const ry = rx * 0.26;
+      const g = ctx.createRadialGradient(x - rx * 0.25, y - ry, 2, x, y, rx);
       g.addColorStop(0, "rgba(126,174,164,0.16)");
       g.addColorStop(1, "rgba(30,60,62,0)");
       ctx.fillStyle = g;
       ctx.beginPath();
-      ctx.ellipse(x, y, rx, rx * 0.32, rng.range(-0.2, 0.2), 0, TAU);
+      for (let k = 0; k <= 12; k++) {
+        const a = (k / 12) * TAU;
+        const wob = 0.78 + Math.sin(k * 2.1 + i) * 0.18;
+        const px = x + Math.cos(a) * rx * wob;
+        const py = y + Math.sin(a) * ry * wob;
+        if (k === 0) ctx.moveTo(px, py);
+        else ctx.lineTo(px, py);
+      }
+      ctx.closePath();
       ctx.fill();
-      ctx.strokeStyle = "rgba(196,224,204,0.13)";
+      ctx.strokeStyle = "rgba(196,224,204,0.10)";
       ctx.lineWidth = 1;
       ctx.beginPath();
-      ctx.ellipse(x, y, rx * 0.58, rx * 0.16, -0.06, 3.0, 5.9);
+      ctx.moveTo(x - rx * 0.5, y);
+      ctx.bezierCurveTo(x - rx * 0.2, y - 3, x + rx * 0.15, y + 3, x + rx * 0.5, y);
       ctx.stroke();
     }
     ctx.strokeStyle = "rgba(182,208,190,0.08)";
@@ -346,26 +356,48 @@ function drawInteriorFloor(
       ctx.stroke();
     }
   } else if (interior === "workshop") {
+    // Chalk tool outlines and sawdust, not decorative geometric rings.
     ctx.strokeStyle = "rgba(206,188,150,0.10)";
-    ctx.lineWidth = 1.2;
-    for (let i = 0; i < 3; i++) {
-      const x = rng.range(70, ROOM_W - 70);
-      const y = rng.range(50, ROOM_H - 50);
+    ctx.lineWidth = 1.1;
+    for (let i = 0; i < 7; i++) {
+      const x = rng.range(50, ROOM_W - 50);
+      const y = rng.range(40, ROOM_H - 40);
+      const kind = rng.int(3);
       ctx.beginPath();
-      ctx.arc(x, y, rng.range(24, 46), 0, TAU);
-      ctx.stroke();
-      for (let k = 0; k < 8; k++) {
-        const a = (k / 8) * TAU;
-        ctx.beginPath();
-        ctx.moveTo(x + Math.cos(a) * 17, y + Math.sin(a) * 17);
-        ctx.lineTo(x + Math.cos(a) * 32, y + Math.sin(a) * 32);
-        ctx.stroke();
+      if (kind === 0) {
+        // saw blade
+        ctx.moveTo(x - 26, y + 6);
+        for (let k = 0; k <= 6; k++) {
+          ctx.lineTo(x - 26 + k * 8, y + (k % 2 === 0 ? -2 : 5));
+        }
+        ctx.moveTo(x - 26, y + 6);
+        ctx.lineTo(x + 22, y + 6);
+      } else if (kind === 1) {
+        // hammer
+        ctx.moveTo(x - 10, y - 16);
+        ctx.lineTo(x - 10, y + 16);
+        ctx.moveTo(x - 22, y - 9);
+        ctx.lineTo(x + 2, y - 9);
+        ctx.lineTo(x + 2, y - 2);
+      } else {
+        // ruler / bench mark
+        ctx.moveTo(x - 24, y);
+        ctx.lineTo(x + 24, y);
+        for (let k = -2; k <= 2; k++) {
+          ctx.moveTo(x + k * 9, y - 5);
+          ctx.lineTo(x + k * 9, y + 5);
+        }
       }
+      ctx.stroke();
     }
     ctx.fillStyle = "rgba(20,16,12,0.18)";
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < 14; i++) {
+      const x = rng.range(30, ROOM_W - 30);
+      const y = rng.range(24, ROOM_H - 24);
       ctx.beginPath();
-      ctx.ellipse(rng.range(40, ROOM_W - 40), rng.range(30, ROOM_H - 30), rng.range(14, 34), rng.range(6, 14), rng.range(0, TAU), 0, TAU);
+      ctx.moveTo(x - rng.range(3, 9), y);
+      ctx.lineTo(x + rng.range(3, 9), y + rng.range(-2, 2));
+      ctx.lineTo(x + rng.range(-3, 3), y + rng.range(2, 5));
       ctx.fill();
     }
   } else if (interior === "nest") {
@@ -595,15 +627,16 @@ function drawInteriorAmbient(
   const rng = new Rng(room.seed ^ 0x19af);
   ctx.save();
   if (interior === "flood") {
-    ctx.globalAlpha = 0.22;
+    ctx.globalAlpha = 0.2;
     for (let i = 0; i < 7; i++) {
       const x = WALL + rng.range(0, ROOM_W) + Math.sin(time * 0.18 + i) * 14;
       const y = WALL + rng.range(0, ROOM_H);
       const rx = 22 + (i % 4) * 12;
-      ctx.strokeStyle = "rgba(190,226,210,0.25)";
+      ctx.strokeStyle = "rgba(190,226,210,0.18)";
       ctx.lineWidth = 1;
       ctx.beginPath();
-      ctx.ellipse(x, y, rx, rx * 0.2, 0, 0, TAU);
+      ctx.moveTo(x - rx, y);
+      ctx.bezierCurveTo(x - rx * 0.35, y - 4, x + rx * 0.3, y + 4, x + rx, y);
       ctx.stroke();
     }
     ctx.globalAlpha = 1;
@@ -1235,27 +1268,6 @@ function drawWalls(ctx: CanvasRenderingContext2D, theme: Theme, rng: Rng, room: 
   }
 
   // boss sigil painted on the floor near the top wall
-  if (room.type === "boss") {
-    ctx.save();
-    ctx.translate(WALL + ROOM_W / 2, WALL + 34);
-    ctx.strokeStyle = "rgba(194,74,51,0.2)";
-    ctx.lineWidth = 1.6;
-    ctx.beginPath();
-    ctx.arc(0, 0, 28, 0, TAU);
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.arc(0, 0, 18, 0, TAU);
-    ctx.stroke();
-    for (let i = 0; i < 8; i++) {
-      const a = (i / 8) * TAU;
-      ctx.beginPath();
-      ctx.moveTo(Math.cos(a) * 7, Math.sin(a) * 7);
-      ctx.lineTo(Math.cos(a) * 25, Math.sin(a) * 25);
-      ctx.stroke();
-    }
-    ctx.restore();
-  }
-
   ctx.restore();
 }
 

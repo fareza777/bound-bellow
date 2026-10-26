@@ -21,28 +21,7 @@ export function drawChapterDressing(
   const cy = WALL + ROOM_H / 2;
   ctx.save();
 
-  // Inlaid floor border and corner studs.
-  ctx.strokeStyle = "rgba(228,210,174,0.075)";
-  ctx.lineWidth = 1;
-  ctx.strokeRect(fx + 11.5, fy + 11.5, ROOM_W - 23, ROOM_H - 23);
-  ctx.strokeStyle = "rgba(10,7,5,0.24)";
-  ctx.strokeRect(fx + 15.5, fy + 15.5, ROOM_W - 31, ROOM_H - 31);
-  for (const [dx, dy] of [
-    [fx + 14, fy + 14],
-    [fx + ROOM_W - 14, fy + 14],
-    [fx + 14, fy + ROOM_H - 14],
-    [fx + ROOM_W - 14, fy + ROOM_H - 14],
-  ]) {
-    ctx.save();
-    ctx.translate(dx, dy);
-    ctx.rotate(Math.PI / 4);
-    ctx.fillStyle = "rgba(216,166,91,0.12)";
-    ctx.fillRect(-2.4, -2.4, 4.8, 4.8);
-    ctx.restore();
-  }
-
   drawChapterFloorWash(ctx, theme, room, fx, fy, rng);
-  drawRoomSigil(ctx, room, theme, cx, cy, rng);
 
   if (theme.index === 0) drawCellarDressing(ctx, room, rng, fx, fy);
   else if (theme.index === 1) drawOssuaryDressing(ctx, room, rng, fx, fy);
@@ -369,7 +348,6 @@ function drawRoomSigil(
         ctx.bezierCurveTo(cx - 48, cy + j * 18 - 7, cx + 4, cy + j * 18 + 7, cx + 104, cy + j * 18);
         ctx.stroke();
       }
-      ctx.strokeRect(cx - 26, cy - 32, 52, 20);
     } else if (theme.index === 3) {
       ctx.beginPath();
       ctx.moveTo(cx, cy - 46);
@@ -746,8 +724,6 @@ function drawRoomTypeDressing(
     ctx.beginPath();
     ctx.arc(x, 21, 4, 0, TAU);
     ctx.fill();
-    ctx.fillStyle = "rgba(84,36,28,0.12)";
-    ctx.fillRect(fx + ROOM_W / 2 - 112, fy + ROOM_H * 0.72 - 28, 224, 56);
   } else if (room.type === "library") {
     for (const side of [-1, 1]) {
       const x = side < 0 ? fx - WALL + 1 : fx + ROOM_W + WALL - 1;
@@ -768,8 +744,6 @@ function drawRoomTypeDressing(
       drawCandle(ctx, x - 10, fy + ROOM_H * 0.52, 0, 3 + side);
       drawCandle(ctx, x + 10, fy + ROOM_H * 0.58, 0, 7 + side);
     }
-    ctx.fillStyle = "rgba(75,28,24,0.12)";
-    ctx.fillRect(fx + ROOM_W / 2 - 104, fy + ROOM_H * 0.58 - 34, 208, 68);
   } else if (room.type === "boss") {
     for (const side of [-1, 1]) {
       const x = fx + ROOM_W / 2 + side * 210;
@@ -793,11 +767,6 @@ function drawRoomTypeDressing(
       }
     }
   } else if (room.type === "challenge") {
-    ctx.strokeStyle = "rgba(216,166,91,0.12)";
-    ctx.lineWidth = 1.1;
-    ctx.setLineDash([7, 7]);
-    ctx.strokeRect(fx + 48, fy + 42, ROOM_W - 96, ROOM_H - 84);
-    ctx.setLineDash([]);
     ctx.strokeStyle = "rgba(194,74,51,0.22)";
     ctx.beginPath();
     ctx.moveTo(fx + 24, fy + 28);
