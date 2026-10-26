@@ -4,17 +4,16 @@
 
 | File | Use |
 |---|---|
-| `BOUND-BELOW-2.0.5.apk` | Direct install / share with testers (signed release APK) |
-| `BOUND-BELOW-2.0.5.aab` | Google Play upload (signed release App Bundle) |
+| `BOUND-BELOW-3.0.0.apk` | Current direct install / share with testers (signed release APK) |
+| `BOUND-BELOW-2.0.5.aab` | Legacy Google Play upload (rebuild for 3.0 store release) |
 | `play-store/icon-512.png` | Play Store app icon (512×512) |
 | `play-store/feature-graphic-1024x500.jpg` | Play Store feature graphic |
 | `play-store/screenshots/` | Four 1920×1080 phone screenshots |
 | `play-store/listing.md` | Store copy, category, data-safety notes |
 
-- APK SHA-256: `a79bef6cdc7c8ae3d0f51504c337111b0d38ab8b2d08782823892982755f0d1c`
-- AAB SHA-256: `a50c859ae455410d7b019ab4b699eca8119c4ff2caf4ed0249059b950b211ee1`
+- APK SHA-256: `f0737a5673781fe6571b2a4ecc9baad7a43e3fd3c626592aced2ec83473b5846`
 - Package: `com.boundbelow.game`
-- Version: `2.0.2` (`versionCode 4`)
+- Version: `3.0.0` (`versionCode 8`)
 - Min Android: 7.0 / API 24
 - Target SDK: 36
 - Orientation: `fullSensor` — portrait and landscape both work
@@ -23,20 +22,20 @@
 
 ## Install the APK
 
-1. Copy `BOUND-BELOW-2.0.5.apk` to the phone.
+1. Copy `BOUND-BELOW-3.0.0.apk` to the phone.
 2. Allow installation from the file manager/browser when prompted.
 3. Install and launch **BOUND BELOW**.
 
 Or with ADB:
 
 ```bash
-adb install -r BOUND-BELOW-2.0.5.apk
+adb install -r BOUND-BELOW-3.0.0.apk
 ```
 
 ## Google Play upload
 
 1. Create the app in Play Console with package `com.boundbelow.game`.
-2. Upload `BOUND-BELOW-2.0.5.aab` to the internal/closed testing track.
+2. Rebuild the App Bundle from this source, then upload it to the internal/closed testing track.
 3. Enroll in Play App Signing and keep the upload key safe.
 4. Fill the store listing from `play-store/listing.md`.
 5. Upload the 512 icon, feature graphic and at least two screenshots.
@@ -55,8 +54,12 @@ adb install -r BOUND-BELOW-2.0.5.apk
 
 ## Checks performed
 
-- `assembleRelease` and `bundleRelease` succeeded.
-- APK verified with `apksigner`; AAB verified with `jarsigner`.
-- Release APK installed and launched on an Android 16 emulator.
-- Title, chapter flow, gameplay, portrait/landscape rotation and the floating
-  D-pad were exercised on the emulator.
+- `assembleRelease` succeeded for 3.0.0.
+- APK verified with `apksigner` (v1/v2 signing, certificate SHA-256 matches).
+- Release APK installed and launched on an Android 16 emulator; title screen,
+  character portrait, voiced-intro screen and packaged WebView assets were confirmed.
+- The 3.0 build includes the touch-first Android detection fix so the skill,
+  relic, bomb and pause controls appear even when the WebView reports a mouse.
+- Full gameplay, skill, relic and responsive layouts were exercised in the browser
+  at 1440×900 and 390×844. The headless emulator became unstable after the intro,
+  so a final on-device gameplay pass is still recommended before a Play Store release.

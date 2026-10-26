@@ -65,7 +65,25 @@ export class Input {
 
   constructor(private canvas: HTMLCanvasElement) {
     const forced = new URLSearchParams(location.search).has("touch");
-    this.hasTouch = forced || matchMedia("(hover: none) and (pointer: coarse)").matches;
+    // Some Android WebViews report a fine pointer even on a touchscreen, so the
+    // native shell must opt into the touch layer explicitly. A desktop with a
+    // touch display also qualifies through maxTouchPoints/ontouchstart.
+    const cap = (globalThis as { Capacitor?: { isNativePlatform?: () => boolean; getPlatform?: () => string } }).Capacitor;
+    const nativeShell = Boolean(
+      cap &&
+        (cap.isNativePlatform?.() ||
+          cap.getPlatform?.() === "android" ||
+          cap.getPlatform?.() === "ios"),
+    );
+    const touchCapable =
+      matchMedia("(hover: none) and (pointer: coarse)").matches ||
+      navigator.maxTouchPoints > 0 ||
+      "ontouchstart" in window;
+    // Android devices are touch-first even when an emulator/Chromebook reports
+    // a mouse-like primary pointer. Never strand the player without on-screen
+    // controls in the packaged app.
+    const androidShell = /Android/i.test(navigator.userAgent);
+    this.hasTouch = forced || nativeShell || touchCapable || androidShell;
 
     const keydown = (e: KeyboardEvent) => {
       const code = normalizedCode(e);

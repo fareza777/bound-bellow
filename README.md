@@ -122,18 +122,26 @@ Sandbox share text:
 
 ## Android APK / Play Store
 
-The Android wrapper source is in `android/`. The signed binaries currently in `share/` are from
-the 2.0.5 wrapper and are intentionally excluded from git; rebuild them after the 3.0 web pass
-with `npm run build && npx cap sync android` before shipping a mobile release.
+The Android wrapper source is in `android/`. The current signed APK is:
 
-- `share/BOUND-BELOW-2.0.5.apk` — legacy direct install / testers
-- `share/BOUND-BELOW-2.0.5.aab` — legacy Play Store upload
+- `share/BOUND-BELOW-3.0.0.apk` — current direct install / testers (versionCode 8)
 - `share/README-ANDROID.md` — install, signing and Play Console checklist
 - `share/play-store/` — 512 icon, 1024×500 feature graphic, screenshots and listing copy
 
-Package `com.boundbelow.game`, wrapper version `2.0.5` (`versionCode 7`), min API 24, target API 36.
+Package `com.boundbelow.game`, version `3.0.0` (`versionCode 8`), min API 24, target API 36.
 The Android wrapper is Capacitor with `fullSensor` orientation, fullscreen WebView, adaptive
 launcher icon and portrait/landscape splashes. The 3.0 touch layer adds a cooldown skill button
 alongside the floating D-pad, weep stick, bomb and active-relic buttons.
+
+The APK is built locally from `dist/`; binaries are excluded from git. To rebuild:
+
+```bash
+npm run build
+npx cap sync android
+cd android && ./gradlew assembleRelease
+```
+
+The legacy `BOUND-BELOW-2.0.5.aab` is kept only as an old Play Store upload; rebuild the bundle
+from the 3.0 source before shipping a store release.
 
 Signing keys and `keystore.properties` are excluded from git (see `.gitignore`).
