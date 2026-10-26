@@ -1,7 +1,7 @@
 {
   "name": "bound-below",
   "private": true,
-  "version": "3.0.0",
+  "version": "3.0.1",
   "type": "module",
   "description": "BOUND BELOW — a hand-inked five-chapter roguelike descent",
   "scripts": {

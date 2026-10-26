@@ -952,15 +952,19 @@ export class Game {
   }
 
   private generateCombatContent(room: Room, rng: Rng): void {
+    const depth = this.floorIndex;
+    const firstFloor = depth === 0;
+    // The first descent should teach the room, not empty a whole nest into it.
+    // Crowd encounters become more common and larger as the house opens up.
     const encounterPool: [Room["encounter"], number][] = [
-      ["standard", 30],
-      ["waves", 13 + this.floorIndex],
-      ["nest", 8 + this.floorIndex],
-      ["ambush", 9],
-      ["elite", 8 + this.floorIndex],
-      ["hazard", 9],
-      ["pincer", 8],
-      ["swarm", 8 + this.floorIndex],
+      ["standard", firstFloor ? 54 : 30],
+      ["waves", firstFloor ? 8 : 12 + depth],
+      ["nest", firstFloor ? 3 : 7 + depth],
+      ["ambush", firstFloor ? 7 : 9],
+      ["elite", firstFloor ? 3 : 7 + depth],
+      ["hazard", 10],
+      ["pincer", firstFloor ? 6 : 8],
+      ["swarm", firstFloor ? 3 : 7 + depth],
     ];
     room.encounter = rng.weighted(encounterPool);
     room.encounterLabel = ENCOUNTER_LABELS[room.encounter];
@@ -970,22 +974,35 @@ export class Game {
     room.obstacles = generateObstacles(room, this.floorIndex, rng);
 
     const distance = this.floor.distance.get(room.id) ?? 2;
-    const curseBonus = this.floor.curse === "swarm" ? 2 : 0;
+    const curseBonus = this.floor.curse === "swarm" ? 1 : 0;
+    const maxBodies = [4, 5, 6, 7, 8][Math.min(4, depth)];
     const baseCount = clamp(
       2 +
-        Math.floor(distance / 2) +
-        Math.floor(this.floorIndex / 2) +
+        Math.floor(distance / 3) +
+        Math.floor(depth * 0.6) +
         curseBonus +
-        (rng.chance(0.3) ? 1 : 0),
+        (rng.chance(0.28) && !firstFloor ? 1 : 0),
       2,
-      8,
+      maxBodies,
     );
-    const roles = (room.interior === "nest" ? this.theme.enemyPool : this.theme.enemyPool).slice();
-    const pickKind = (): EnemyKind => rng.weighted(roles);
+    const roles = this.theme.enemyPool.slice();
+    // Rooms feel more intentional when they read as a family, not a zoo.
+    const primaryKind = rng.weighted(roles);
+    const pickKind = (): EnemyKind =>
+      rng.chance(firstFloor ? 0.7 : 0.58) ? primaryKind : rng.weighted(roles);
     const spawnOne = (kind: EnemyKind, elite: EliteKind | null = null): boolean => {
-      const spot = this.findFreeSpot(rng, 66, room.obstacles, 46);
-      if (!spot) return false;
-      room.enemies.push(makeEnemy(kind, spot.x, spot.y, this.floorIndex, rng, elite));
+      let fallback: { x: number; y: number } | null = null;
+      for (let attempt = 0; attempt < 18; attempt++) {
+        const spot = this.findFreeSpot(rng, 66, room.obstacles, 46);
+        if (!spot) continue;
+        fallback = fallback ?? spot;
+        if (room.enemies.every((other) => dist(other.x, other.y, spot.x, spot.y) > 74)) {
+          fallback = spot;
+          break;
+        }
+      }
+      if (!fallback) return false;
+      room.enemies.push(makeEnemy(kind, fallback.x, fallback.y, this.floorIndex, rng, elite));
       discoverEnemy(this.meta, kind);
       return true;
     };
@@ -1000,25 +1017,33 @@ export class Game {
       ]);
 
     if (room.encounter === "waves") {
-      room.maxWaves = 2 + (this.floorIndex >= 2 ? 1 : 0) + (rng.chance(0.3) ? 1 : 0);
+      room.maxWaves = this.floorIndex <= 1 ? 2 : 2 + (this.floorIndex >= 2 ? 1 : 0) + (rng.chance(0.25) ? 1 : 0);
       room.wave = 1;
-      const first = Math.max(2, baseCount - 2);
+      const first = Math.max(1, baseCount - 1);
       for (let i = 0; i < first; i++) spawnOne(pickKind());
     } else if (room.encounter === "nest") {
       room.maxWaves = 0;
-      for (let i = 0; i < 2 + (rng.chance(0.5) ? 1 : 0); i++) spawnOne(pickKind());
+      const guards = firstFloor ? 1 : 2 + (rng.chance(0.4) ? 1 : 0);
+      for (let i = 0; i < guards; i++) spawnOne(pickKind());
     } else if (room.encounter === "elite") {
       room.maxWaves = 0;
       spawnOne(pickKind(), eliteKind());
-      for (let i = 0; i < baseCount + 1; i++) spawnOne(pickKind());
+      const retinue = firstFloor ? 0 : Math.max(1, baseCount - 2);
+      for (let i = 0; i < retinue; i++) spawnOne(pickKind());
     } else if (room.encounter === "swarm") {
       room.maxWaves = 0;
       const swarmPool = this.theme.enemyPool
         .filter(([kind]) => ["moth", "crawler", "ragdoll", "waxcrow", "wretch", "swarmling", "grub", "spore"].includes(kind))
         .map(([kind, weight]) => [kind, weight] as [EnemyKind, number]);
       const pool = swarmPool.length ? swarmPool : this.theme.enemyPool;
-      for (let i = 0; i < clamp(baseCount + 4, 6, 12); i++) {
-        const spot = this.findFreeSpot(rng, 82, room.obstacles, 40);
+      const count = clamp(baseCount + 1, 3, firstFloor ? 6 : 9);
+      for (let i = 0; i < count; i++) {
+        let spot = this.findFreeSpot(rng, 82, room.obstacles, 40);
+        for (let attempt = 0; attempt < 12 && spot; attempt++) {
+          const candidate = spot;
+          if (room.enemies.every((other) => dist(other.x, other.y, candidate.x, candidate.y) > 56)) break;
+          spot = this.findFreeSpot(rng, 82, room.obstacles, 40);
+        }
         if (!spot) break;
         const kind = rng.weighted(pool);
         room.enemies.push(makeEnemy(kind, spot.x, spot.y, this.floorIndex, rng));
@@ -1033,12 +1058,14 @@ export class Game {
         { x: 128, y: ROOM_H - 120 },
       ];
       rng.shuffle(centers);
-      for (let i = 0; i < baseCount; i++) {
+      const count = Math.min(baseCount, firstFloor ? 3 : 5);
+      for (let i = 0; i < count; i++) {
         const c = centers[i % 2];
         for (let attempt = 0; attempt < 20; attempt++) {
           const x = clamp(c.x + rng.range(-90, 90), 44, ROOM_W - 44);
           const y = clamp(c.y + rng.range(-66, 66), 44, ROOM_H - 44);
           if (room.obstacles.some((o) => obstacleBlocks(o.kind) && circleRect(x, y, 18, o.x, o.y, o.w, o.h))) continue;
+          if (room.enemies.some((other) => dist(other.x, other.y, x, y) < 62)) continue;
           const kind = pickKind();
           room.enemies.push(makeEnemy(kind, x, y, this.floorIndex, rng));
           discoverEnemy(this.meta, kind);
@@ -1047,20 +1074,22 @@ export class Game {
       }
     } else if (room.encounter === "ambush") {
       room.maxWaves = 0;
-      const count = Math.max(3, baseCount);
+      const count = Math.min(Math.max(2, baseCount - 1), firstFloor ? 3 : 4);
+      const radiusX = firstFloor ? 170 : 190;
+      const radiusY = firstFloor ? 105 : 120;
       for (let i = 0; i < count; i++) {
         const a = (i / count) * TAU + rng.range(-0.2, 0.2);
-        const x = clamp(ROOM_W / 2 + Math.cos(a) * 190, 46, ROOM_W - 46);
-        const y = clamp(ROOM_H / 2 + Math.sin(a) * 120, 46, ROOM_H - 46);
+        const x = clamp(ROOM_W / 2 + Math.cos(a) * radiusX, 46, ROOM_W - 46);
+        const y = clamp(ROOM_H / 2 + Math.sin(a) * radiusY, 46, ROOM_H - 46);
         const kind = pickKind();
         room.enemies.push(makeEnemy(kind, x, y, this.floorIndex, rng));
         discoverEnemy(this.meta, kind);
       }
     } else {
       room.maxWaves = 0;
-      const count = room.encounter === "hazard" ? Math.max(2, baseCount - 2) : baseCount;
+      const count = room.encounter === "hazard" ? Math.max(1, baseCount - 1) : baseCount;
       for (let i = 0; i < count; i++) {
-        const elite = rng.chance(0.1 + this.floorIndex * 0.014) ? eliteKind() : null;
+        const elite = rng.chance(0.03 + this.floorIndex * 0.015) ? eliteKind() : null;
         spawnOne(pickKind(), elite);
       }
     }
@@ -1097,7 +1126,8 @@ export class Game {
       nest.spawnTimer = (nest.spawnTimer ?? 4) - dt;
       if (nest.spawnTimer > 0) continue;
       nest.spawnTimer = 5.2 + (nest.seed % 17) * 0.16;
-      if (this.room.enemies.length >= 18) continue;
+      const nestCap = this.floorIndex === 0 ? 6 : this.floorIndex === 1 ? 9 : 14;
+      if (this.room.enemies.length >= nestCap) continue;
       const rng = new Rng(mixSeed(this.room.seed, nest.seed, Math.floor(this.time * 7)));
       const kind: EnemyKind = rng.weighted([
         ["grub", 26],
@@ -1120,13 +1150,22 @@ export class Game {
     if (room.wave >= room.maxWaves) return false;
     room.wave += 1;
     const rng = new Rng(mixSeed(room.seed, 0x77a3e, room.wave));
-    const count = clamp(2 + this.floorIndex + room.wave + (this.floor.curse === "swarm" ? 1 : 0), 2, 8);
+    const count = clamp(
+      1 + Math.floor(this.floorIndex * 0.5) + room.wave + (this.floor.curse === "swarm" ? 1 : 0),
+      1,
+      this.floorIndex <= 1 ? 3 : 6,
+    );
     let spawned = 0;
     for (let i = 0; i < count; i++) {
-      const spot = this.findFreeSpot(rng, 80, room.obstacles, 42);
+      let spot = this.findFreeSpot(rng, 80, room.obstacles, 42);
+      for (let attempt = 0; attempt < 10 && spot; attempt++) {
+        const candidate = spot;
+        if (room.enemies.every((other) => dist(other.x, other.y, candidate.x, candidate.y) > 64)) break;
+        spot = this.findFreeSpot(rng, 80, room.obstacles, 42);
+      }
       if (!spot) continue;
       const kind = rng.weighted(this.theme.enemyPool);
-      const elite = rng.chance(0.08 + this.floorIndex * 0.012) ? rng.pick(["stitched", "blessed", "swift", "cursed"] as const) : null;
+      const elite = rng.chance(0.06 + this.floorIndex * 0.012) ? rng.pick(["stitched", "blessed", "swift", "cursed"] as const) : null;
       room.enemies.push(makeEnemy(kind, spot.x, spot.y, this.floorIndex, rng, elite));
       discoverEnemy(this.meta, kind);
       this.spawnBurst(spot.x, spot.y, "#7c2a24", 9, 70, 3, 40);
@@ -3094,7 +3133,7 @@ export class Game {
     this.drawParticles(ctx);
     this.drawTexts(ctx);
     ctx.restore();
-    this.renderer.drawLighting(ctx, this.theme, this.floorIndex);
+    this.renderer.drawLighting(ctx, this.theme, this.floorIndex, this.room);
     this.drawPlayerLight(ctx);
     if (this.floor.curse === "darkness") this.drawDarkness(ctx);
     ctx.restore();

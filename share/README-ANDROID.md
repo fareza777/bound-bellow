@@ -4,16 +4,16 @@
 
 | File | Use |
 |---|---|
-| `BOUND-BELOW-3.0.0.apk` | Current direct install / share with testers (signed release APK) |
+| `BOUND-BELOW-3.0.1.apk` | Current direct install / share with testers (signed release APK) |
 | `BOUND-BELOW-2.0.5.aab` | Legacy Google Play upload (rebuild for 3.0 store release) |
 | `play-store/icon-512.png` | Play Store app icon (512×512) |
 | `play-store/feature-graphic-1024x500.jpg` | Play Store feature graphic |
 | `play-store/screenshots/` | Four 1920×1080 phone screenshots |
 | `play-store/listing.md` | Store copy, category, data-safety notes |
 
-- APK SHA-256: `f0737a5673781fe6571b2a4ecc9baad7a43e3fd3c626592aced2ec83473b5846`
+- APK SHA-256: `530ff9923dd5c422a4c02efb6b47b73d267f228adaf0bdfad31af6d29de69b6a`
 - Package: `com.boundbelow.game`
-- Version: `3.0.0` (`versionCode 8`)
+- Version: `3.0.1` (`versionCode 9`)
 - Min Android: 7.0 / API 24
 - Target SDK: 36
 - Orientation: `fullSensor` — portrait and landscape both work
@@ -22,14 +22,14 @@
 
 ## Install the APK
 
-1. Copy `BOUND-BELOW-3.0.0.apk` to the phone.
+1. Copy `BOUND-BELOW-3.0.1.apk` to the phone.
 2. Allow installation from the file manager/browser when prompted.
 3. Install and launch **BOUND BELOW**.
 
 Or with ADB:
 
 ```bash
-adb install -r BOUND-BELOW-3.0.0.apk
+adb install -r BOUND-BELOW-3.0.1.apk
 ```
 
 ## Google Play upload
@@ -54,7 +54,7 @@ adb install -r BOUND-BELOW-3.0.0.apk
 
 ## Checks performed
 
-- `assembleRelease` succeeded for 3.0.0.
+- `assembleRelease` succeeded for 3.0.1.
 - APK verified with `apksigner` (v1/v2 signing, certificate SHA-256 matches).
 - Release APK installed and launched on an Android 16 emulator; title screen,
   character portrait, voiced-intro screen and packaged WebView assets were confirmed.

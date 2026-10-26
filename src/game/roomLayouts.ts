@@ -385,23 +385,14 @@ export function generateObstacles(room: Room, floorIndex: number, rng: Rng): Obs
           [1, 1],
           [2, 1],
           [3, 1],
-          [4, 1],
           [1, 5],
           [2, 5],
           [3, 5],
-          [4, 5],
         ],
         "rock",
         "x",
       );
-      paint(
-        [
-          [2, 3],
-          [3, 3],
-        ],
-        "rock",
-        "x",
-      );
+      paint([[2, 3]], "rock", "x");
       if (rng.chance(0.8)) paint([[5, 2], [5, 4]], "brazier", "x");
       break;
     case "crypt":

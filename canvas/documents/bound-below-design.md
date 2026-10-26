@@ -1,6 +1,6 @@
 # BOUND BELOW — Main Design Document
 
-**Version:** 3.0 · **Genre:** top-down roguelike twin-stick shooter · **Platform:** browser (desktop, gamepad, touch) · **Engine:** Canvas 2D + TypeScript + Vite
+**Version:** 3.0.1 · **Genre:** top-down roguelike twin-stick shooter · **Platform:** browser (desktop, gamepad, touch) · **Engine:** Canvas 2D + TypeScript + Vite
 **Status:** implemented production build target
 
 ## 1. Player fantasy
@@ -57,6 +57,7 @@ Menus pause gameplay input. The game fills any iframe, keeps a fixed 960×650 de
 ### Floors
 
 - Layout: 13–17 rooms grown from the start on a 9×9 grid, with branches, special rooms and a boss at the far end. Layout, content and drops are seeded and deterministic.
+- Pacing: floors I–II cap combat at 4–5 bodies, waves at two rounds and elite rooms have no retinue on the first floor. Crowd rules (swarm, pincer, ambush, nest) grow gradually with depth, and spawned bodies keep a minimum spacing so rooms do not become a single clump. Rooms also favour one “family” of enemy so a pack reads as intentional.
 - Each floor has a theme palette, enemy pool, boss, ambient chord and chapter plate.
 - Doors: combat doors close during a fight; treasure and vault doors need keys; boss and challenge doors lock the room; a trapdoor appears after a main boss.
 - Floor exit: main boss room. Descending heals a little and grants a small supply bonus; the next chapter card names the curse if one is active.
@@ -197,7 +198,7 @@ Each main boss has a phase cycle, a phase-two minion wave, a voiced introduction
 - **Palette:** soot `#141011`, bone `#e8dcc4`, parchment `#c9b795`, dried blood `#8e2b2b`, thread red `#b8402f`, candle `#e0a24e`.
 - **Chapter palettes:** Cellar olive `#5d6b4a`; Ossuary teal `#4f6f6d`; Drowned Gallery green-gold `#5d7a68`; Bone Orchard amber `#8a6a3d`; Hollow rose `#6e2f3a`.
 - **Camera:** fixed per room, whole room visible, like a stage. Rooms sit inside a dark surround that carries the HUD.
-- **Room identity:** floor/wall dressing is cached per room and combines interior, layout and seed. Animation adds water shimmer, spores, candle flicker, dust and torch glow without changing collision.
+- **Room identity:** floor/wall dressing is cached per room and combines chapter, interior, layout and seed. Each chapter adds its own inlaid border, floor wash/medallion, wall props (cellar beams and cupboards, ossuary niches and bone stacks, drowned painted panels and waterline, orchard roots and hanging pods, hollow veins and rib arches) plus a coloured light shaft. Start, treasure, shop, library, challenge, vault and boss rooms get a room-role sigil or prop set. Animation adds water shimmer, spores, candle flicker, dust and torch glow without changing collision.
 - **Motion:** stepped sprite wobble for enemies, smooth 60 fps movement, cloth sway, floating dust, ink-fade menus. Screen shake and flashes respect settings and `prefers-reduced-motion`.
 - **Generated vs. code-drawn:** generated illustration is reserved for the title, five chapter plates and four character portraits. Gameplay actors, rooms, items, HUD icons, FX and audio are code-drawn/synthesized so they stay crisp, small and consistent.
 
@@ -228,10 +229,11 @@ Each main boss has a phase cycle, a phase-two minion wave, a voiced introduction
 
 The generated plates and portraits are 1440×810 / 3:4 JPEG exports; the canvas keeps the source images and runtime-export nodes for provenance. Voice regeneration is a build-time script (`tools/generate_vo.py`) and the API key is supplied by environment variable only.
 
-## 10. Definition of done (3.0)
+## 10. Definition of done (3.0.1)
 
 - Title → character/seed or daily → voiced opening → five chapters → boss → victory/true ending/death → restart, all in one session.
 - All four children, five themes, five main bosses, six minibosses, 30 enemies, 28 room layouts, 8 interiors, 8 encounter rules, 10 room types, 108 items, 4 child skills, 6 transformations, 3 curses, 6 elite rules, secret/sacrifice/library/vault, daily seed, 30 marks and the Ledger are reachable.
+- Floors I–II keep combat at 4–5 bodies, early waves at two rounds and first-floor elite rooms without a retinue; deeper floors scale up.
 - Every child skill works from keyboard, the touch button and the gamepad; the HUD shows its cooldown and the pause menu names it.
 - Active relics work from Q, the touch button and the gamepad; trinkets and transformations show in the HUD and pause.
 - Room generation can produce every layout; every generated room keeps the centre and all doors connected; nests and wave rooms cannot soft-lock.
@@ -253,6 +255,6 @@ The generated plates and portraits are 1440×810 / 3:4 JPEG exports; the canvas 
 - Test hooks (never used by gameplay): `?testRoom=start|combat|treasure|shop|boss|library|vault|sacrifice|challenge|secret|secretreveal`, `?testSeed=`, `?floor=0..4`, `?testPower=1`, `?testCharacter=wren|moth|cinder|choir`, `?testItem=<item-id>`, `?testCurse=darkness|swarm|famine`, `?testTransform=stitch|wax|drowned|gilt|ash|hollow`, `?testTrue=1`, `?touch=1`, `?clearRecord=1`, and `globalThis.__OHMYGAME_PLAYTEST__` with snapshot/reset/setSeed/step/jump.
 - Responsive input: keyboard, mouse aim/shoot, pointer virtual sticks, gamepad polling, pause/menu gating. Audio is unlocked on first gesture.
 - Relative `base: "./"` Vite build; no runtime dependency beyond the framework.
-- Android: Capacitor WebView wrapper, package `com.boundbelow.game`, version 3.0.0 (`versionCode 8`), min API 24, target API 36, `fullSensor` portrait/landscape, immersive fullscreen, adaptive launcher icon and orientation-specific splash art. The signed 3.0.0 APK lives in `share/BOUND-BELOW-3.0.0.apk`; store bundles are rebuilt from the same source.
+- Android: Capacitor WebView wrapper, package `com.boundbelow.game`, version 3.0.1 (`versionCode 9`), min API 24, target API 36, `fullSensor` portrait/landscape, immersive fullscreen, adaptive launcher icon and orientation-specific splash art. The signed 3.0.1 APK lives in `share/BOUND-BELOW-3.0.1.apk`; store bundles are rebuilt from the same source.
 - Native touch detection treats Android/embedded Capacitor shells as touch-first even when the WebView reports a mouse-like pointer, so the skill, relic, bomb and pause controls stay reachable.
 - Playgama Bridge 2.3.1 is bundled locally; initialization, Storage, `game_ready`, pause/audio events, an end-of-run interstitial and product/performance telemetry are integrated. The Playgama archive is built from `dist/`; store assets live in `store/`.

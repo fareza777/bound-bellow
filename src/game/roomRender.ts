@@ -3,6 +3,7 @@ import type { Dir, Interior, Room } from "./types";
 import { ROOM_H, ROOM_W, ROOM_X, ROOM_Y, TAU, WALL } from "./types";
 import type { Theme } from "./theme";
 import { drawCandle, drawTorch, PAL, roundRect } from "./art";
+import { drawChapterAmbient, drawChapterDressing } from "./roomDressing";
 
 export type DoorVisual = "open" | "closed" | "locked" | "boss";
 
@@ -26,6 +27,7 @@ export class RoomRenderer {
     ctx.translate(ROOM_X - WALL, ROOM_Y - WALL);
     ctx.drawImage(canvas, 0, 0);
     drawInteriorAmbient(ctx, room, theme, time);
+    drawChapterAmbient(ctx, room, theme, time);
 
     // animated torch glow (baked brackets / dynamic flame light)
     const flick = 0.85 + Math.sin(time * 8.1) * 0.08 + Math.sin(time * 21) * 0.04;
@@ -91,7 +93,7 @@ export class RoomRenderer {
     }
   }
 
-  drawLighting(ctx: CanvasRenderingContext2D, theme: Theme, floorIndex: number): void {
+  drawLighting(ctx: CanvasRenderingContext2D, theme: Theme, floorIndex: number, room: Room): void {
     const grad = ctx.createRadialGradient(
       ROOM_X + ROOM_W / 2,
       ROOM_Y + ROOM_H / 2,
@@ -128,6 +130,60 @@ export class RoomRenderer {
       ctx.fillStyle = "rgba(150,170,165,0.025)";
       ctx.fillRect(ROOM_X, ROOM_Y, ROOM_W, ROOM_H);
     }
+
+    // Chapter colour grade and a soft stage vignette.
+    const tint = [
+      "rgba(122,142,78,0.035)",
+      "rgba(120,156,150,0.04)",
+      "rgba(84,138,132,0.05)",
+      "rgba(166,128,72,0.045)",
+      "rgba(154,56,62,0.05)",
+    ][Math.min(4, Math.max(0, floorIndex))];
+    ctx.fillStyle = tint;
+    ctx.fillRect(ROOM_X - WALL, ROOM_Y - WALL, this.w, this.h);
+
+    const corner = ctx.createRadialGradient(
+      ROOM_X + ROOM_W / 2,
+      ROOM_Y + ROOM_H / 2,
+      ROOM_W * 0.18,
+      ROOM_X + ROOM_W / 2,
+      ROOM_Y + ROOM_H / 2,
+      ROOM_W * 0.68,
+    );
+    corner.addColorStop(0, "rgba(0,0,0,0)");
+    corner.addColorStop(0.72, "rgba(0,0,0,0.10)");
+    corner.addColorStop(1, "rgba(0,0,0,0.34)");
+    ctx.fillStyle = corner;
+    ctx.fillRect(ROOM_X - WALL, ROOM_Y - WALL, this.w, this.h);
+
+    // Special rooms get one extra pool of local colour.
+    if (room.type === "boss") {
+      const bossGlow = ctx.createRadialGradient(
+        ROOM_X + ROOM_W / 2,
+        ROOM_Y + ROOM_H * 0.38,
+        30,
+        ROOM_X + ROOM_W / 2,
+        ROOM_Y + ROOM_H * 0.38,
+        ROOM_W * 0.55,
+      );
+      bossGlow.addColorStop(0, "rgba(180,54,48,0.07)");
+      bossGlow.addColorStop(1, "rgba(120,20,20,0)");
+      ctx.fillStyle = bossGlow;
+      ctx.fillRect(ROOM_X - WALL, ROOM_Y - WALL, this.w, this.h);
+    } else if (room.type === "shop" || room.type === "treasure") {
+      const warmPool = ctx.createRadialGradient(
+        ROOM_X + ROOM_W / 2,
+        ROOM_Y + ROOM_H * 0.58,
+        20,
+        ROOM_X + ROOM_W / 2,
+        ROOM_Y + ROOM_H * 0.58,
+        ROOM_W * 0.42,
+      );
+      warmPool.addColorStop(0, "rgba(232,179,108,0.055)");
+      warmPool.addColorStop(1, "rgba(232,179,108,0)");
+      ctx.fillStyle = warmPool;
+      ctx.fillRect(ROOM_X - WALL, ROOM_Y - WALL, this.w, this.h);
+    }
   }
 
   private build(room: Room, theme: Theme): HTMLCanvasElement {
@@ -155,6 +211,7 @@ export class RoomRenderer {
     // walls
     drawWalls(ctx, theme, rng, room);
     drawInteriorWalls(ctx, theme, rng, room);
+    drawChapterDressing(ctx, theme, rng, room);
 
     // inner shadow from walls
     ctx.save();

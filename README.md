@@ -1,6 +1,6 @@
 # BOUND BELOW
 
-**Version 3.0 — The Deep House.** A much larger content pass: 28 room layouts, 30 enemies, 108 items, 4 child skills and 6 minibosses.
+**Version 3.0.1 — The Deep House.** A much larger content pass: 28 room layouts, chapter-specific room dressing, 30 enemies, 108 items, 4 child skills and 6 minibosses.
 
 A hand-inked, top-down roguelike descent for the browser. A small child follows a red thread under the floorboards through five chapters of basement: clear rooms, choose relics, break rock with bombs, unlock the reliquary, bargain at the altar, and put down the keeper of each floor.
 
@@ -44,8 +44,9 @@ The game is designed for a wide view and plays best in landscape on phones. Port
 - 4 playable children: **Wren**, **Moth**, **Cinder**, **Choir** — each with a different body, stat line and starting loadout; Moth, Cinder and Choir unlock through the Ledger
 - 5 main bosses and 6 challenge minibosses, each with phase changes; the main bosses and the four new servants have voiced introductions
 - 30 enemy types, including ranged, charging, phasing, nest-spawning, teleporting and splitting threats, plus six elite rules
+- gentler early pacing: 4–5 bodies on floors I–II, no first-floor elite retinue, two-round early waves and spaced-out packs
 - 10 room types: start, combat, treasure, shop, boss, secret, sacrifice, challenge, library and vault
-- 28 room furniture layouts, 8 interior dressings and 8 encounter rules (waves, nests, ambush, elite, hazard, pincer, swarm, standard)
+- 28 room furniture layouts, 8 interior dressings, 8 encounter rules and chapter-specific room dressing with floor medallions, wall props, light shafts and ambience
 - 108 items: 62 relics, 24 active relics (Q / gamepad / touch) and 22 trinkets
 - 4 character skills with cooldowns: Thread Pull, Dust Veil, Cinder Bloom and Requiem
 - 6 transformations: The Stitch, Waxbound, The Drowned Choir, The Gilded, Ashbound and The Hollowed
@@ -124,11 +125,11 @@ Sandbox share text:
 
 The Android wrapper source is in `android/`. The current signed APK is:
 
-- `share/BOUND-BELOW-3.0.0.apk` — current direct install / testers (versionCode 8)
+- `share/BOUND-BELOW-3.0.1.apk` — current direct install / testers (versionCode 9)
 - `share/README-ANDROID.md` — install, signing and Play Console checklist
 - `share/play-store/` — 512 icon, 1024×500 feature graphic, screenshots and listing copy
 
-Package `com.boundbelow.game`, version `3.0.0` (`versionCode 8`), min API 24, target API 36.
+Package `com.boundbelow.game`, version `3.0.1` (`versionCode 9`), min API 24, target API 36.
 The Android wrapper is Capacitor with `fullSensor` orientation, fullscreen WebView, adaptive
 launcher icon and portrait/landscape splashes. The 3.0 touch layer adds a cooldown skill button
 alongside the floating D-pad, weep stick, bomb and active-relic buttons.
