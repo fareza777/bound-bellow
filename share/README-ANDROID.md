@@ -11,7 +11,7 @@
 | `play-store/screenshots/` | Four 1920×1080 phone screenshots |
 | `play-store/listing.md` | Store copy, category, data-safety notes |
 
-- APK SHA-256: `647c0113b6047e33c1ddfee355395ec78cd63b86a6d6bb096e8ac0fe18a7c426`
+- APK SHA-256: `4c2d8511f21e0d034679ef90a1af06826c1c8608da7f103dd8ecf54ec06003e6`
 - Package: `com.boundbelow.game`
 - Version: `3.0.1` (`versionCode 9`)
 - Min Android: 7.0 / API 24

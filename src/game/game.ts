@@ -3185,7 +3185,7 @@ export class Game {
     // flash
     if (this.flash > 0 && this.flashesEnabled) {
       ctx.save();
-      ctx.globalAlpha = Math.min(0.5, this.flash);
+      ctx.globalAlpha = Math.min(0.3, this.flash * 0.72);
       ctx.fillStyle = this.flashColor;
       ctx.fillRect(0, 0, VIEW_W, VIEW_H);
       ctx.restore();
