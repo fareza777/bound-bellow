@@ -685,132 +685,84 @@ function tone(color: string, amount: number): string {
 
 function drawFloor(ctx: CanvasRenderingContext2D, rng: Rng, theme: Theme): void {
   const p = theme.palette;
-  ctx.fillStyle = "#17130e";
+  const cols = 13;
+  const rows = 7;
+  const tw = ROOM_W / cols;
+  const th = ROOM_H / rows;
+
+  ctx.fillStyle = "#15110c";
   ctx.fillRect(0, 0, ROOM_W, ROOM_H);
 
-  // Large, irregular flagstones. Fewer joints and no 13x7 grid keeps the
-  // playfield calm while the walls carry the chapter's set dressing.
-  const rows = 4;
-  const rowH = ROOM_H / rows;
-  for (let row = 0; row < rows; row++) {
-    let x = -rng.range(10, 70);
-    while (x < ROOM_W + 20) {
-      const w = rng.range(155, 250);
-      const y0 = row * rowH + rng.range(-3, 3);
-      const y1 = y0 + rowH + rng.range(-4, 4);
-      const toneKey = rng.weighted([
-        [p.floorA, 3],
+  // The original 13x7 flagstone rhythm, with calmer joints and no puddle
+  // decals or broad colour washes laid over the playfield.
+  for (let y = 0; y < rows; y++) {
+    for (let x = 0; x < cols; x++) {
+      const x0 = x * tw + 2.4 + rng.range(-0.8, 0.8);
+      const y0 = y * th + 2.4 + rng.range(-0.8, 0.8);
+      const w0 = tw - 4.2 + rng.range(-1, 1);
+      const h0 = th - 4.2 + rng.range(-1, 1);
+      const key = rng.weighted([
+        [p.floorA, 4],
         [p.floorB, 4],
         [p.floorC, 2],
-        [tone(p.floorA, -8), 1],
       ] as const);
-      const grad = ctx.createLinearGradient(x, y0, x + w, y1);
-      grad.addColorStop(0, tone(toneKey, 8 + rng.range(-4, 4)));
-      grad.addColorStop(0.58, toneKey);
-      grad.addColorStop(1, tone(toneKey, -10));
+
+      const grad = ctx.createLinearGradient(x0, y0, x0 + w0, y0 + h0);
+      grad.addColorStop(0, tone(key, 5 + rng.range(-2, 3)));
+      grad.addColorStop(0.55, key);
+      grad.addColorStop(1, tone(key, -7));
 
       ctx.beginPath();
-      ctx.moveTo(x + rng.range(2, 12), y0 + rng.range(1, 6));
-      ctx.lineTo(x + w - rng.range(4, 14), y0 + rng.range(0, 6));
-      ctx.quadraticCurveTo(x + w + rng.range(-5, 5), y0 + rowH * 0.5, x + w - rng.range(4, 12), y1 - rng.range(2, 7));
-      ctx.lineTo(x + rng.range(4, 12), y1 - rng.range(1, 6));
-      ctx.quadraticCurveTo(x + rng.range(-5, 5), y0 + rowH * 0.5, x + rng.range(2, 12), y0 + rng.range(1, 6));
+      ctx.moveTo(x0 + 3 + rng.range(-1, 1), y0 + rng.range(-0.8, 0.8));
+      ctx.lineTo(x0 + w0 - 4 + rng.range(-1, 1), y0 + 2 + rng.range(-1, 1));
+      ctx.quadraticCurveTo(x0 + w0 + 1, y0 + h0 * 0.42, x0 + w0 - 2, y0 + h0 - 3);
+      ctx.lineTo(x0 + 4 + rng.range(-1, 1), y0 + h0 + rng.range(-1, 1));
+      ctx.quadraticCurveTo(x0 - 1, y0 + h0 * 0.55, x0 + 2, y0 + 4);
       ctx.closePath();
       ctx.fillStyle = grad;
       ctx.fill();
-      ctx.strokeStyle = "rgba(8,6,4,0.26)";
-      ctx.lineWidth = 1;
+      ctx.strokeStyle = "rgba(11,8,6,0.32)";
+      ctx.lineWidth = 0.9;
       ctx.stroke();
 
-      // one quiet highlight along the top of the slab
-      if (rng.chance(0.7)) {
-        ctx.strokeStyle = "rgba(235,220,190,0.055)";
-        ctx.lineWidth = 0.8;
-        ctx.beginPath();
-        ctx.moveTo(x + 16, y0 + 6);
-        ctx.lineTo(x + w - 20, y0 + 5);
-        ctx.stroke();
-      }
+      ctx.strokeStyle = "rgba(235,215,180,0.045)";
+      ctx.lineWidth = 0.9;
+      ctx.beginPath();
+      ctx.moveTo(x0 + 5, y0 + 4);
+      ctx.lineTo(x0 + w0 * 0.55, y0 + 2.5);
+      ctx.stroke();
 
-      // A few hairline cracks, not a web on every stone.
-      if (rng.chance(0.32)) {
-        const cx = x + rng.range(24, Math.max(30, w - 24));
-        const cy = y0 + rng.range(12, rowH - 12);
-        ctx.strokeStyle = "rgba(10,7,5,0.22)";
+      if (rng.chance(0.2)) {
+        const cx = x0 + rng.range(10, w0 - 12);
+        const cy = y0 + rng.range(10, h0 - 12);
+        ctx.strokeStyle = "rgba(10,7,5,0.18)";
         ctx.lineWidth = 0.8;
         ctx.beginPath();
         ctx.moveTo(cx, cy);
-        ctx.lineTo(cx + rng.range(-10, 10), cy + rng.range(4, 12));
-        if (rng.chance(0.35)) {
-          ctx.lineTo(cx + rng.range(-18, 18), cy + rng.range(12, 22));
-        }
+        ctx.lineTo(cx + rng.range(-7, 7), cy + rng.range(-5, 8));
         ctx.stroke();
       }
 
-      x += w + rng.range(2, 7);
+      if (rng.chance(0.07) && (x < 3 || x > cols - 4 || y === 0 || y === rows - 1)) {
+        ctx.fillStyle = "rgba(104,115,76,0.10)";
+        ctx.beginPath();
+        ctx.ellipse(
+          x0 + rng.range(8, w0 - 8),
+          y0 + rng.range(8, h0 - 8),
+          rng.range(2, 6),
+          rng.range(1, 3),
+          rng.range(0, TAU),
+          0,
+          TAU,
+        );
+        ctx.fill();
+      }
     }
   }
 
-  // Broad damp/moss areas are painted as soft irregular washes, never circles.
-  if (theme.index === 0) {
-    for (let i = 0; i < 8; i++) {
-      const x = rng.range(18, ROOM_W - 18);
-      const y = rng.range(18, ROOM_H - 18);
-      ctx.fillStyle = i % 3 === 0 ? "rgba(205,170,102,0.12)" : "rgba(16,12,9,0.18)";
-      ctx.beginPath();
-      ctx.ellipse(x, y, rng.range(1, 2.5), rng.range(0.6, 1.4), rng.range(0, TAU), 0, TAU);
-      ctx.fill();
-    }
-  } else if (theme.index === 1) {
-    ctx.fillStyle = "rgba(210,195,160,0.06)";
-    for (let i = 0; i < 7; i++) {
-      ctx.beginPath();
-      ctx.ellipse(rng.range(24, ROOM_W - 24), rng.range(20, ROOM_H - 20), rng.range(5, 16), rng.range(2, 5), rng.range(0, TAU), 0, TAU);
-      ctx.fill();
-    }
-    ctx.strokeStyle = "rgba(216,166,91,0.08)";
-    for (let i = 0; i < 3; i++) {
-      const x = rng.range(60, ROOM_W - 60);
-      const y = rng.range(40, ROOM_H - 40);
-      ctx.beginPath();
-      ctx.moveTo(x, y);
-      ctx.quadraticCurveTo(x + rng.range(-8, 8), y + 10, x + rng.range(-4, 4), y + 22);
-      ctx.stroke();
-    }
-  } else if (theme.index === 2) {
-    for (let i = 0; i < 6; i++) {
-      const y = rng.range(40, ROOM_H - 30);
-      ctx.strokeStyle = "rgba(170,214,200,0.075)";
-      ctx.lineWidth = 0.9;
-      ctx.beginPath();
-      ctx.moveTo(rng.range(0, 90), y);
-      ctx.bezierCurveTo(ROOM_W * 0.35, y + rng.range(-7, 7), ROOM_W * 0.7, y + rng.range(-7, 7), ROOM_W - rng.range(0, 90), y);
-      ctx.stroke();
-    }
-  } else if (theme.index === 3) {
-    ctx.strokeStyle = "rgba(95,68,37,0.12)";
-    for (let i = 0; i < 4; i++) {
-      const x = rng.range(20, ROOM_W - 20);
-      const y = rng.range(20, ROOM_H - 20);
-      ctx.beginPath();
-      ctx.moveTo(x, y);
-      ctx.bezierCurveTo(x + rng.range(-30, 30), y + 12, x + rng.range(-45, 45), y + 22, x + rng.range(-22, 22), y + 36);
-      ctx.stroke();
-    }
-  } else {
-    ctx.strokeStyle = "rgba(178,56,52,0.11)";
-    for (let i = 0; i < 4; i++) {
-      const y = rng.range(30, ROOM_H - 30);
-      ctx.beginPath();
-      ctx.moveTo(0, y);
-      ctx.bezierCurveTo(ROOM_W * 0.3, y + rng.range(-14, 14), ROOM_W * 0.7, y + rng.range(-14, 14), ROOM_W, y + rng.range(-8, 8));
-      ctx.stroke();
-    }
-  }
-
-  const path = ctx.createRadialGradient(ROOM_W / 2, ROOM_H / 2, 20, ROOM_W / 2, ROOM_H / 2, 240);
+  const path = ctx.createRadialGradient(ROOM_W / 2, ROOM_H / 2, 20, ROOM_W / 2, ROOM_H / 2, 220);
   path.addColorStop(0, "rgba(225,200,160,0.035)");
-  path.addColorStop(0.65, "rgba(225,200,160,0.012)");
+  path.addColorStop(0.6, "rgba(225,200,160,0.012)");
   path.addColorStop(1, "rgba(0,0,0,0)");
   ctx.fillStyle = path;
   ctx.fillRect(0, 0, ROOM_W, ROOM_H);
@@ -819,7 +771,7 @@ function drawFloor(ctx: CanvasRenderingContext2D, rng: Rng, theme: Theme): void 
   edge.addColorStop(0, "rgba(0,0,0,0.12)");
   edge.addColorStop(0.2, "rgba(0,0,0,0)");
   edge.addColorStop(0.8, "rgba(0,0,0,0)");
-  edge.addColorStop(1, "rgba(0,0,0,0.18)");
+  edge.addColorStop(1, "rgba(0,0,0,0.17)");
   ctx.fillStyle = edge;
   ctx.fillRect(0, 0, ROOM_W, ROOM_H);
 }
