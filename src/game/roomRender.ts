@@ -131,31 +131,6 @@ export class RoomRenderer {
       ctx.fillRect(ROOM_X, ROOM_Y, ROOM_W, ROOM_H);
     }
 
-    // Chapter colour grade and a soft stage vignette.
-    const tint = [
-      "rgba(122,142,78,0.035)",
-      "rgba(120,156,150,0.04)",
-      "rgba(84,138,132,0.05)",
-      "rgba(166,128,72,0.045)",
-      "rgba(154,56,62,0.05)",
-    ][Math.min(4, Math.max(0, floorIndex))];
-    ctx.fillStyle = tint;
-    ctx.fillRect(ROOM_X - WALL, ROOM_Y - WALL, this.w, this.h);
-
-    const corner = ctx.createRadialGradient(
-      ROOM_X + ROOM_W / 2,
-      ROOM_Y + ROOM_H / 2,
-      ROOM_W * 0.18,
-      ROOM_X + ROOM_W / 2,
-      ROOM_Y + ROOM_H / 2,
-      ROOM_W * 0.68,
-    );
-    corner.addColorStop(0, "rgba(0,0,0,0)");
-    corner.addColorStop(0.72, "rgba(0,0,0,0.10)");
-    corner.addColorStop(1, "rgba(0,0,0,0.34)");
-    ctx.fillStyle = corner;
-    ctx.fillRect(ROOM_X - WALL, ROOM_Y - WALL, this.w, this.h);
-
     // Special rooms get one extra pool of local colour.
     if (room.type === "boss") {
       const bossGlow = ctx.createRadialGradient(
@@ -710,176 +685,141 @@ function tone(color: string, amount: number): string {
 
 function drawFloor(ctx: CanvasRenderingContext2D, rng: Rng, theme: Theme): void {
   const p = theme.palette;
-  const cols = 13;
-  const rows = 7;
-  const tw = ROOM_W / cols;
-  const th = ROOM_H / rows;
-
-  ctx.fillStyle = "#15110c";
+  ctx.fillStyle = "#17130e";
   ctx.fillRect(0, 0, ROOM_W, ROOM_H);
 
-  for (let y = 0; y < rows; y++) {
-    for (let x = 0; x < cols; x++) {
-      const x0 = x * tw + 2.4 + rng.range(-0.8, 0.8);
-      const y0 = y * th + 2.4 + rng.range(-0.8, 0.8);
-      const w0 = tw - 4.2 + rng.range(-1, 1);
-      const h0 = th - 4.2 + rng.range(-1, 1);
-      const key = rng.weighted([
+  // Large, irregular flagstones. Fewer joints and no 13x7 grid keeps the
+  // playfield calm while the walls carry the chapter's set dressing.
+  const rows = 4;
+  const rowH = ROOM_H / rows;
+  for (let row = 0; row < rows; row++) {
+    let x = -rng.range(10, 70);
+    while (x < ROOM_W + 20) {
+      const w = rng.range(155, 250);
+      const y0 = row * rowH + rng.range(-3, 3);
+      const y1 = y0 + rowH + rng.range(-4, 4);
+      const toneKey = rng.weighted([
         [p.floorA, 3],
         [p.floorB, 4],
         [p.floorC, 2],
-        [tone(p.floorA, -9), 1],
+        [tone(p.floorA, -8), 1],
       ] as const);
-
-      const grad = ctx.createLinearGradient(x0, y0, x0 + w0, y0 + h0);
-      grad.addColorStop(0, tone(key, 9 + rng.range(-4, 5)));
-      grad.addColorStop(0.55, key);
-      grad.addColorStop(1, tone(key, -12));
+      const grad = ctx.createLinearGradient(x, y0, x + w, y1);
+      grad.addColorStop(0, tone(toneKey, 8 + rng.range(-4, 4)));
+      grad.addColorStop(0.58, toneKey);
+      grad.addColorStop(1, tone(toneKey, -10));
 
       ctx.beginPath();
-      ctx.moveTo(x0 + 3 + rng.range(-1, 1), y0 + rng.range(-0.8, 0.8));
-      ctx.lineTo(x0 + w0 - 4 + rng.range(-1, 1), y0 + 2 + rng.range(-1, 1));
-      ctx.quadraticCurveTo(x0 + w0 + 1, y0 + h0 * 0.42, x0 + w0 - 2, y0 + h0 - 3);
-      ctx.lineTo(x0 + 4 + rng.range(-1, 1), y0 + h0 + rng.range(-1, 1));
-      ctx.quadraticCurveTo(x0 - 1, y0 + h0 * 0.55, x0 + 2, y0 + 4);
+      ctx.moveTo(x + rng.range(2, 12), y0 + rng.range(1, 6));
+      ctx.lineTo(x + w - rng.range(4, 14), y0 + rng.range(0, 6));
+      ctx.quadraticCurveTo(x + w + rng.range(-5, 5), y0 + rowH * 0.5, x + w - rng.range(4, 12), y1 - rng.range(2, 7));
+      ctx.lineTo(x + rng.range(4, 12), y1 - rng.range(1, 6));
+      ctx.quadraticCurveTo(x + rng.range(-5, 5), y0 + rowH * 0.5, x + rng.range(2, 12), y0 + rng.range(1, 6));
       ctx.closePath();
       ctx.fillStyle = grad;
       ctx.fill();
-      ctx.strokeStyle = "rgba(11,8,6,0.72)";
-      ctx.lineWidth = 1.3;
+      ctx.strokeStyle = "rgba(8,6,4,0.26)";
+      ctx.lineWidth = 1;
       ctx.stroke();
 
-      ctx.strokeStyle = "rgba(235,215,180,0.10)";
-      ctx.lineWidth = 1.2;
-      ctx.beginPath();
-      ctx.moveTo(x0 + 5, y0 + 4);
-      ctx.lineTo(x0 + w0 * 0.55, y0 + 2.5);
-      ctx.stroke();
-      ctx.strokeStyle = "rgba(0,0,0,0.28)";
-      ctx.beginPath();
-      ctx.moveTo(x0 + 4, y0 + h0 - 5);
-      ctx.lineTo(x0 + w0 * 0.62, y0 + h0 - 2);
-      ctx.stroke();
+      // one quiet highlight along the top of the slab
+      if (rng.chance(0.7)) {
+        ctx.strokeStyle = "rgba(235,220,190,0.055)";
+        ctx.lineWidth = 0.8;
+        ctx.beginPath();
+        ctx.moveTo(x + 16, y0 + 6);
+        ctx.lineTo(x + w - 20, y0 + 5);
+        ctx.stroke();
+      }
 
-      if (rng.chance(0.68)) {
-        const cx = x0 + rng.range(10, w0 - 12);
-        const cy = y0 + rng.range(10, h0 - 12);
-        ctx.strokeStyle = "rgba(10,7,5,0.48)";
-        ctx.lineWidth = 0.9;
+      // A few hairline cracks, not a web on every stone.
+      if (rng.chance(0.32)) {
+        const cx = x + rng.range(24, Math.max(30, w - 24));
+        const cy = y0 + rng.range(12, rowH - 12);
+        ctx.strokeStyle = "rgba(10,7,5,0.22)";
+        ctx.lineWidth = 0.8;
         ctx.beginPath();
         ctx.moveTo(cx, cy);
-        ctx.lineTo(cx + rng.range(-8, 8), cy + rng.range(-6, 9));
-        if (rng.chance(0.4)) ctx.lineTo(cx + rng.range(-13, 13), cy + rng.range(0, 13));
-        ctx.stroke();
-        ctx.strokeStyle = "rgba(235,220,190,0.045)";
-        ctx.beginPath();
-        ctx.moveTo(cx + 1, cy + 1);
-        ctx.lineTo(cx + 6, cy + 5);
+        ctx.lineTo(cx + rng.range(-10, 10), cy + rng.range(4, 12));
+        if (rng.chance(0.35)) {
+          ctx.lineTo(cx + rng.range(-18, 18), cy + rng.range(12, 22));
+        }
         ctx.stroke();
       }
 
-      if (rng.chance(0.24)) {
-        ctx.fillStyle = "rgba(15,11,8,0.35)";
-        const cx = rng.pick([x0 + 5, x0 + w0 - 8]);
-        const cy = rng.pick([y0 + 5, y0 + h0 - 8]);
-        ctx.beginPath();
-        ctx.moveTo(cx - 3, cy - 2);
-        ctx.lineTo(cx + 5, cy + 1);
-        ctx.lineTo(cx + 2, cy + 6);
-        ctx.closePath();
-        ctx.fill();
-      }
-      if (rng.chance(0.17) && (x < 3 || x > cols - 4 || y === 0 || y === rows - 1)) {
-        ctx.fillStyle = "rgba(104,115,76,0.18)";
-        ctx.beginPath();
-        ctx.ellipse(
-          x0 + rng.range(8, w0 - 8),
-          y0 + rng.range(8, h0 - 8),
-          rng.range(3, 9),
-          rng.range(2, 4),
-          rng.range(0, TAU),
-          0,
-          TAU,
-        );
-        ctx.fill();
-      }
+      x += w + rng.range(2, 7);
     }
   }
 
-  const path = ctx.createRadialGradient(ROOM_W / 2, ROOM_H / 2, 20, ROOM_W / 2, ROOM_H / 2, 220);
-  path.addColorStop(0, "rgba(225,200,160,0.05)");
-  path.addColorStop(0.6, "rgba(225,200,160,0.018)");
+  // Broad damp/moss areas are painted as soft irregular washes, never circles.
+  if (theme.index === 0) {
+    for (let i = 0; i < 8; i++) {
+      const x = rng.range(18, ROOM_W - 18);
+      const y = rng.range(18, ROOM_H - 18);
+      ctx.fillStyle = i % 3 === 0 ? "rgba(205,170,102,0.12)" : "rgba(16,12,9,0.18)";
+      ctx.beginPath();
+      ctx.ellipse(x, y, rng.range(1, 2.5), rng.range(0.6, 1.4), rng.range(0, TAU), 0, TAU);
+      ctx.fill();
+    }
+  } else if (theme.index === 1) {
+    ctx.fillStyle = "rgba(210,195,160,0.06)";
+    for (let i = 0; i < 7; i++) {
+      ctx.beginPath();
+      ctx.ellipse(rng.range(24, ROOM_W - 24), rng.range(20, ROOM_H - 20), rng.range(5, 16), rng.range(2, 5), rng.range(0, TAU), 0, TAU);
+      ctx.fill();
+    }
+    ctx.strokeStyle = "rgba(216,166,91,0.08)";
+    for (let i = 0; i < 3; i++) {
+      const x = rng.range(60, ROOM_W - 60);
+      const y = rng.range(40, ROOM_H - 40);
+      ctx.beginPath();
+      ctx.moveTo(x, y);
+      ctx.quadraticCurveTo(x + rng.range(-8, 8), y + 10, x + rng.range(-4, 4), y + 22);
+      ctx.stroke();
+    }
+  } else if (theme.index === 2) {
+    for (let i = 0; i < 6; i++) {
+      const y = rng.range(40, ROOM_H - 30);
+      ctx.strokeStyle = "rgba(170,214,200,0.075)";
+      ctx.lineWidth = 0.9;
+      ctx.beginPath();
+      ctx.moveTo(rng.range(0, 90), y);
+      ctx.bezierCurveTo(ROOM_W * 0.35, y + rng.range(-7, 7), ROOM_W * 0.7, y + rng.range(-7, 7), ROOM_W - rng.range(0, 90), y);
+      ctx.stroke();
+    }
+  } else if (theme.index === 3) {
+    ctx.strokeStyle = "rgba(95,68,37,0.12)";
+    for (let i = 0; i < 4; i++) {
+      const x = rng.range(20, ROOM_W - 20);
+      const y = rng.range(20, ROOM_H - 20);
+      ctx.beginPath();
+      ctx.moveTo(x, y);
+      ctx.bezierCurveTo(x + rng.range(-30, 30), y + 12, x + rng.range(-45, 45), y + 22, x + rng.range(-22, 22), y + 36);
+      ctx.stroke();
+    }
+  } else {
+    ctx.strokeStyle = "rgba(178,56,52,0.11)";
+    for (let i = 0; i < 4; i++) {
+      const y = rng.range(30, ROOM_H - 30);
+      ctx.beginPath();
+      ctx.moveTo(0, y);
+      ctx.bezierCurveTo(ROOM_W * 0.3, y + rng.range(-14, 14), ROOM_W * 0.7, y + rng.range(-14, 14), ROOM_W, y + rng.range(-8, 8));
+      ctx.stroke();
+    }
+  }
+
+  const path = ctx.createRadialGradient(ROOM_W / 2, ROOM_H / 2, 20, ROOM_W / 2, ROOM_H / 2, 240);
+  path.addColorStop(0, "rgba(225,200,160,0.035)");
+  path.addColorStop(0.65, "rgba(225,200,160,0.012)");
   path.addColorStop(1, "rgba(0,0,0,0)");
   ctx.fillStyle = path;
   ctx.fillRect(0, 0, ROOM_W, ROOM_H);
 
-  if (theme.index === 0) {
-    for (let i = 0; i < 3; i++) {
-      const wx = rng.range(70, ROOM_W - 90);
-      const wy = rng.range(60, ROOM_H - 70);
-      const rx = rng.range(42, 100);
-      const ry = rng.range(20, 44);
-      const g = ctx.createRadialGradient(wx, wy, 4, wx, wy, rx);
-      g.addColorStop(0, "rgba(46,50,36,0.48)");
-      g.addColorStop(0.7, "rgba(36,42,30,0.24)");
-      g.addColorStop(1, "rgba(30,38,28,0)");
-      ctx.fillStyle = g;
-      ctx.beginPath();
-      for (let k = 0; k <= 12; k++) {
-        const a = (k / 12) * TAU;
-        const wob = 0.78 + Math.sin(k * 2.7 + i) * 0.18;
-        const px = wx + Math.cos(a) * rx * wob;
-        const py = wy + Math.sin(a) * ry * wob;
-        if (k === 0) ctx.moveTo(px, py);
-        else ctx.lineTo(px, py);
-      }
-      ctx.closePath();
-      ctx.fill();
-      ctx.strokeStyle = "rgba(194,184,154,0.08)";
-      ctx.lineWidth = 1;
-      ctx.stroke();
-      ctx.strokeStyle = "rgba(238,196,132,0.13)";
-      ctx.beginPath();
-      ctx.moveTo(wx - rx * 0.25, wy);
-      ctx.lineTo(wx + rx * 0.1, wy - 1);
-      ctx.moveTo(wx + rx * 0.2, wy + 3);
-      ctx.lineTo(wx + rx * 0.42, wy + 2);
-      ctx.stroke();
-    }
-  } else if (theme.index === 1) {
-    for (let i = 0; i < 12; i++) {
-      const wx = rng.range(20, ROOM_W - 20);
-      const wy = rng.range(24, ROOM_H - 20);
-      ctx.fillStyle = "rgba(210,195,160,0.13)";
-      ctx.beginPath();
-      ctx.ellipse(wx, wy, rng.range(4, 15), rng.range(2, 6), rng.range(0, TAU), 0, TAU);
-      ctx.fill();
-    }
-  } else {
-    for (let i = 0; i < 7; i++) {
-      const wx = rng.range(30, ROOM_W - 30);
-      const wy = rng.range(40, ROOM_H - 30);
-      const g = ctx.createRadialGradient(wx, wy, 3, wx, wy, rng.range(30, 75));
-      g.addColorStop(0, "rgba(35,10,11,0.35)");
-      g.addColorStop(1, "rgba(35,10,11,0)");
-      ctx.fillStyle = g;
-      ctx.beginPath();
-      ctx.arc(wx, wy, 70, 0, TAU);
-      ctx.fill();
-      ctx.strokeStyle = "rgba(194,74,51,0.18)";
-      ctx.lineWidth = 1.3;
-      ctx.beginPath();
-      ctx.moveTo(wx - 24, wy + 4);
-      ctx.bezierCurveTo(wx - 8, wy - 8, wx + 8, wy + 12, wx + 28, wy + 2);
-      ctx.stroke();
-    }
-  }
-
   const edge = ctx.createLinearGradient(0, 0, 0, ROOM_H);
-  edge.addColorStop(0, "rgba(0,0,0,0.18)");
+  edge.addColorStop(0, "rgba(0,0,0,0.12)");
   edge.addColorStop(0.2, "rgba(0,0,0,0)");
   edge.addColorStop(0.8, "rgba(0,0,0,0)");
-  edge.addColorStop(1, "rgba(0,0,0,0.26)");
+  edge.addColorStop(1, "rgba(0,0,0,0.18)");
   ctx.fillStyle = edge;
   ctx.fillRect(0, 0, ROOM_W, ROOM_H);
 }
@@ -940,14 +880,14 @@ function drawFloorDecals(ctx: CanvasRenderingContext2D, rng: Rng, theme: Theme):
     ctx.restore();
   };
 
-  for (let i = 0; i < 8; i++) {
+  for (let i = 0; i < 4; i++) {
     const x = rng.range(30, ROOM_W - 30);
     const y = rng.range(30, ROOM_H - 30);
     if (rng.chance(0.25)) skull(x, y, rng.range(4, 7), 0.22);
     else bone(x, y, rng.range(0, TAU), rng.range(5, 10), 0.19);
   }
 
-  for (let i = 0; i < 26; i++) {
+  for (let i = 0; i < 12; i++) {
     const x = rng.range(14, ROOM_W - 14);
     const y = rng.range(14, ROOM_H - 14);
     ctx.fillStyle = rng.chance(0.5) ? "rgba(205,190,158,0.16)" : "rgba(12,9,7,0.24)";
@@ -956,10 +896,10 @@ function drawFloorDecals(ctx: CanvasRenderingContext2D, rng: Rng, theme: Theme):
     ctx.fill();
   }
 
-  for (let i = 0; i < 6; i++) {
+  for (let i = 0; i < 3; i++) {
     const x = rng.range(20, ROOM_W - 20);
     const y = rng.range(20, ROOM_H - 20);
-    ctx.fillStyle = "rgba(100,111,76,0.20)";
+    ctx.fillStyle = "rgba(100,111,76,0.14)";
     ctx.beginPath();
     ctx.ellipse(x, y, rng.range(5, 14), rng.range(2, 5), rng.range(0, TAU), 0, TAU);
     ctx.fill();
@@ -1101,7 +1041,7 @@ function drawWalls(ctx: CanvasRenderingContext2D, theme: Theme, rng: Rng, room: 
           ctx.lineTo(x + rng.range(7, blockW - 8), y + rowH - 4);
           ctx.stroke();
         }
-        if (rng.chance(0.16)) {
+        if (rng.chance(0.1)) {
           ctx.fillStyle = "rgba(86,96,62,0.18)";
           ctx.beginPath();
           ctx.ellipse(

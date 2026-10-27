@@ -115,19 +115,6 @@ function drawChapterFloorWash(
       ctx.bezierCurveTo(fx + ROOM_W * 0.28, y + rng.range(-22, 22), fx + ROOM_W * 0.7, y + rng.range(-22, 22), fx + ROOM_W, y + rng.range(-12, 12));
       ctx.stroke();
     }
-  } else {
-    ctx.fillStyle = "rgba(15,11,8,0.10)";
-    for (let i = 0; i < 4; i++) {
-      const x = fx + rng.range(40, ROOM_W - 40);
-      const y = fy + rng.range(24, ROOM_H - 24);
-      const wx = rng.range(24, 70);
-      const hy = rng.range(8, 22);
-      ctx.beginPath();
-      ctx.moveTo(x - wx, y);
-      ctx.bezierCurveTo(x - wx * 0.4, y - hy, x + wx * 0.3, y - hy * 1.2, x + wx, y);
-      ctx.bezierCurveTo(x + wx * 0.4, y + hy, x - wx * 0.3, y + hy * 0.9, x - wx, y);
-      ctx.fill();
-    }
   }
   ctx.restore();
   void room;
@@ -807,19 +794,6 @@ export function drawChapterAmbient(
   const fx = WALL;
   const fy = WALL;
   ctx.save();
-  const shaft = ctx.createLinearGradient(fx + ROOM_W * 0.72, 0, fx + ROOM_W * 0.45, fy + ROOM_H);
-  shaft.addColorStop(0, theme.palette.glow + "12");
-  shaft.addColorStop(0.55, theme.palette.glow + "06");
-  shaft.addColorStop(1, "rgba(0,0,0,0)");
-  ctx.fillStyle = shaft;
-  ctx.beginPath();
-  ctx.moveTo(fx + ROOM_W * 0.58, 0);
-  ctx.lineTo(fx + ROOM_W * 0.84, 0);
-  ctx.lineTo(fx + ROOM_W * 0.62, ROOM_H);
-  ctx.lineTo(fx + ROOM_W * 0.36, ROOM_H);
-  ctx.closePath();
-  ctx.fill();
-
   if (theme.index === 0) {
     for (let i = 0; i < 12; i++) {
       const x = fx + rng.range(0, ROOM_W) + Math.sin(time * 0.25 + i * 2.1) * 10;

@@ -46,7 +46,7 @@ The game is designed for a wide view and plays best in landscape on phones. Port
 - 30 enemy types, including ranged, charging, phasing, nest-spawning, teleporting and splitting threats, plus six elite rules
 - gentler early pacing: 4–5 bodies on floors I–II, no first-floor elite retinue, two-round early waves and spaced-out packs
 - 10 room types: start, combat, treasure, shop, boss, secret, sacrifice, challenge, library and vault
-- 28 room furniture layouts, 8 interior dressings, 8 encounter rules and chapter-specific room dressing with natural floor wear, wall props, light shafts and ambience
+- 28 room furniture layouts, 8 interior dressings, 8 encounter rules and chapter-specific room dressing with clean flagstone floors, wall props and ambience
 - 108 items: 62 relics, 24 active relics (Q / gamepad / touch) and 22 trinkets
 - 4 character skills with cooldowns: Thread Pull, Dust Veil, Cinder Bloom and Requiem
 - 6 transformations: The Stitch, Waxbound, The Drowned Choir, The Gilded, Ashbound and The Hollowed
